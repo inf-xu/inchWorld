@@ -2,6 +2,13 @@ import Vue from 'vue'
 
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import VueAMap from 'vue-amap'
+VueAMap.initAMapApiLoader({
+    key: 'your amap key',
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+    v: '1.4.4'
+});
+Vue.use(VueAMap);
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
@@ -30,4 +37,4 @@ const vm = new Vue({
     el: '#app',
     render: c => c(app),
     router,
-})  
+})

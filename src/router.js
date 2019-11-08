@@ -5,12 +5,13 @@ import HomeContainer from './components/tabbar/HomeContainer.vue'
 import TodoContainer from './components/tabbar/TodoContainer.vue'
 import UserContainer from './components/tabbar/UserContainer.vue'
 import Voluntary from './components/home/Voluntary.vue'
+import Electron from './components/home/Electron.vue'
 
 const router = new VueRouter({
-    routes: [ // 配置路由规则
+    routes: [ 
         {
             path: '/',
-            redirect: '/HomeContainer'
+            redirect: '/home'
         },
         {
             path: '/login',
@@ -31,6 +32,10 @@ const router = new VueRouter({
         {
             path: '/home/voluntary',
             component: Voluntary
+        },
+        {
+            path: '/home/electron',
+            component: Electron
         },
 
     ],

@@ -26,14 +26,35 @@ module.exports = {
         new VueLoaderPlugin(),
     ],
     module: {
-        rules: [
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-            { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
-            { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] }, 
-            { test: /\.(jpg|png|gif|bmp|jpeg)$/, use: 'url-loader' }, // image
-            { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' }, //font
-            { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/},
-            { test: /\.vue$/,loader: 'vue-loader'},
+        rules: [{
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(jpg|png|gif|bmp|jpeg)$/,
+                use: 'url-loader'
+            }, // image
+            {
+                test: /\.(ttf|eot|svg|woff|woff2)$/,
+                use: 'url-loader'
+            }, //font
+            {
+                test: /\.js$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
         ]
     },
     resolve: { // 由于使用 const vue = import 'vue' 功能不完整，因此需要在这里重新配置一个包给它
@@ -41,4 +62,21 @@ module.exports = {
             "vue$": "vue/dist/vue.js"
         }
     }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ])
 }

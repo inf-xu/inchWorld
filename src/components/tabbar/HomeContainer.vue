@@ -39,25 +39,27 @@
       </div>
     </div>
 
-    <!-- 卡片:  -->
-    <div class="mui-card">
-      <div class="mui-card-header">Hi,你好呀!</div>
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
-          <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;《方寸》是我利用业余时间开发的一款软件，
-            开发的初衷是为了解决教务系统的繁琐，功能不全的问题。
-          </p>
-          <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;记得大二刚开始的时候，一切从零开始，什么也不会但就是想把这个整出来。
-            所以大三这段时间就在想能不能开发一款app来帮助我归纳这些信息，
-            于是就有了它。
-          </p>
+    <!-- 卡片: 提示 -->
+    <transition>
+      <div class="mui-card">
+        <div class="mui-card-header">Hi,你好呀!</div>
+        <div class="mui-card-content">
+          <div class="mui-card-content-inner">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;《方寸》是我利用业余时间开发的一款软件，
+              开发的初衷是为了解决教务系统的繁琐，功能不全的问题。
+            </p>
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;记得大二刚开始的时候，一切从零开始，什么也不会但就是想把这个整出来。
+              所以大三这段时间就在想能不能开发一款app来帮助我归纳这些信息，
+              于是就有了它。
+            </p>
+          </div>
         </div>
+        <div class="mui-card-footer right-info">——《方寸》</div>
       </div>
-      <div class="mui-card-footer right-info"> ——《方寸》</div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -66,6 +68,21 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.v-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
+}
 .home-container {
   .mui-icon {
     font-size: 10px;
