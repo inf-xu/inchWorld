@@ -1,6 +1,6 @@
 <template>
   <div class="todo-container">
-    <todoSearch @getText="submitTodo" :info="'create a todo'"></todoSearch>
+    <todoSearch @getText="submitTodo" :info="'create a todo'" :type="'text'"></todoSearch>
 
     <div class="mui-card">
       <div class="mui-card-header">

@@ -32,6 +32,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VuePreview from 'vue-preview'
 Vue.use(VuePreview)
 
+Vue.filter('dataFormat', function (dataStr) {
+    return dataStr.split('：')[1]
+})
+
 import router from './router.js'
 const vm = new Vue({
     el: '#app',

@@ -1,9 +1,9 @@
 <template>
   <div class="electron-container">
-    <todoSearch @getText="getElectricbill" :info="'15-203'"></todoSearch>
+    <electronSearch @getText="getElectricbill" :info="'15-203'" :type="'text'"></electronSearch>
 
     <div class="mui-card" v-show="flag">
-      <div class="mui-card-header">电费情况</div>
+      <div class="mui-card-header">{{name}}的电费情况</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <ul class="mui-table-view">
@@ -24,13 +24,8 @@
       </div>
     </div>
 
-    <div class="mui-card">
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner inner-info">
-          输入你的房间号,例如<strong>"15-203"</strong>
-        </div>
-      </div>
-    </div>
+    <electronInfo :info="'输入你的房间号,例如<strong>15-203</strong>'" v-show="!flag"></electronInfo>
+
 
     <div class="mui-card">
       <div class="mui-card-content">
@@ -45,7 +40,8 @@
 </template>
 
 <script>
-import todoSearch from "../subcomponents/HandleSearch.vue";
+import electronSearch from "../subcomponents/HandleSearch.vue";
+import electronInfo from "../subcomponents/Info.vue";
 
 export default {
   data() {
@@ -55,6 +51,7 @@ export default {
       electricbill: {},
       zoom: 12,
       center,
+      name: '',
       window: {
         position: center,
         content: "这里距离的你的家乡有多远呢?"
@@ -63,10 +60,10 @@ export default {
   },
   methods: {
     getElectricbill(materoom) {
-      const name = materoom;
+      this.name = materoom;
 
       this.$http
-        .get("api/electricbill/" + name)
+        .get("api/electricbill/" + this.name)
         .then(res => {
           if (res.body.status === 0) {
             this.electricbill = res.body.message;
@@ -81,7 +78,8 @@ export default {
     }
   },
   components: {
-    todoSearch
+    electronSearch,
+    electronInfo
   }
 };
 </script>
@@ -96,10 +94,6 @@ export default {
       display: flex;
       justify-content: space-between;
     }
-  }
-  .inner-info {
-    text-align: center;
-    font-size: 16px;
   }
 }
 </style>

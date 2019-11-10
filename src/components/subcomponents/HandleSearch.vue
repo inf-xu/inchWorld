@@ -5,7 +5,7 @@
         <div class="mui-input-row mui-search">
           <div class="input-group">
             <input
-              type="text"
+              :type="type"
               class="form-control"
               v-model="newTodoItem"
               @keyup.enter="getText()"
@@ -31,7 +31,7 @@ export default {
         this.newTodoItem = ''
     }
   },
-  props: ['info']
+  props: ['info', 'type']
 };
 </script>
 

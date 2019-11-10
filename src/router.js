@@ -6,6 +6,9 @@ import TodoContainer from './components/tabbar/TodoContainer.vue'
 import UserContainer from './components/tabbar/UserContainer.vue'
 import Voluntary from './components/home/Voluntary.vue'
 import Electron from './components/home/Electron.vue'
+import Physical from './components/user/Physical.vue'
+import Score from './components/user/Score.vue'
+import Book from './components/user/Book.vue'
 
 const router = new VueRouter({
     routes: [ 
@@ -36,6 +39,18 @@ const router = new VueRouter({
         {
             path: '/home/electron',
             component: Electron
+        },
+        {
+            path: '/user/physical',
+            component: Physical
+        },
+        {
+            path: '/user/score',
+            component: Score
+        },
+        {
+            path: '/user/book',
+            component: Book
         },
 
     ],

@@ -87,6 +87,9 @@ export default {};
   .mui-icon {
     font-size: 10px;
   }
+  a {
+    text-decoration: none;
+  }
   .strong-info {
     background-color: rgba(83, 82, 81, 0.29);
     color: white;

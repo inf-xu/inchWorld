@@ -1,6 +1,6 @@
 <template>
   <div class="vol-container">
-    <todoSearch @getText="searchItem" :info="'search'"></todoSearch>
+    <volSearch @getText="searchItem" :info="'search'" :type="'text'"></volSearch>
 
     <div class="mui-card" v-if="flag">
       <div class="mui-card-content">
@@ -50,7 +50,7 @@
 
 <script>
 import { Toast } from "mint-ui";
-import todoSearch from "../subcomponents/HandleSearch.vue";
+import volSearch from "../subcomponents/HandleSearch.vue"
 
 export default {
   data() {
@@ -121,7 +121,7 @@ export default {
     }
   },
   components: {
-    todoSearch
+    volSearch
   }
 };
 </script>
