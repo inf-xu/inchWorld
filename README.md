@@ -1,8 +1,8 @@
-### 方寸 -- 简易教务系统
+## 方寸 -- 简易教务系统
 
 >由于教务系统过于繁杂臃肿，学生平时主要使用课表和成绩查询，并且教务系统尚未内置义工时和电费及图书查询等功能，学生平时多在各个公众号之间切换。为了方便学生的查询和简化访问教务系统，因此本人开发了方寸，使用`node js`和`vue js`来做一个简易的教务访问系统
 
-### 前端 -- 基于 `Vue.js `+ `Webpack`+`mui`+`mint`开发
+### 前端 -- 基于 `Vue.js+Webpack+mui+mint`开发
 
 ![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE9b79d88a5b7f966e887a6e5b3633cdde/245)
 
