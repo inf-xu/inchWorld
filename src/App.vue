@@ -4,7 +4,7 @@
       <router-view></router-view>
     </transition>
 
-    <nav class="mui-bar mui-bar-tab">
+    <nav class="mui-bar mui-bar-tab" v-show="flag">
       <router-link class="mui-tab-item-llb" to="/home">
         <span class="mui-icon mui-icon-home"></span>
       </router-link>
@@ -19,7 +19,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      flag: false
+    };
+  },
+  created() {
+    this.flag = this.$route.path === "/login" ? false : true;
+  },
+  methods: {
+  },
+  watch: {
+    "$route.path": function(newVal) {
+      if (newVal === '/login') {
+        this.flag = false
+      } else {
+        this.flag = true
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

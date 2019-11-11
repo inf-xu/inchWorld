@@ -2,11 +2,11 @@
   <div class="user-container">
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner head-img">
+        <div class="mui-card-content-inner head-img" @click="yh_info">
           <img src="../../assets/about-daisy.jpg" />
           <div class="mui-media-body">
-            徐瑞
-            <p>计算机工程学院</p>
+            {{ user.xm }}
+            <p>{{ user.zymc }}</p>
           </div>
         </div>
       </div>
@@ -77,7 +77,29 @@
 </template>
 
 <script>
-export default {};
+import { Toast } from "mint-ui";
+
+export default {
+  data() {
+    return {
+      user: {}
+    }
+  },
+  created() {
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo() {
+      this.user = {
+        xm: this.$store.state.userInfo.id,
+        zymc: this.$store.state.userInfo.zy
+      }
+    },
+    yh_info() {
+      Toast('头像你是不可能换的啦')
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

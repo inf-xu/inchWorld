@@ -64,7 +64,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {}
+  },
+  created() {
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo() {
+      const id = this.$store.state.userInfo.id
+      this.$http.get('api/userinfo/' + id).then( res => {
+        if (res.body.status === 0) {
+            const user = JSON.parse(res.body.message)
+            this.$store.commit("addUserInfo", user);
+          } 
+      }).catch(err => {
+        Toast('前方通道拥挤')
+      })
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

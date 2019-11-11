@@ -82,7 +82,7 @@ export default {
     getPhysicalList(pwd) {
       this.ipassword = pwd
       const user = {
-        name: "2017117108",
+        name: this.$store.state.userInfo.id,
         password: pwd
       };
 
@@ -102,7 +102,7 @@ export default {
     },
     clickTerm(year, term) {
       const user = {
-        name: "2017117108",
+        name: this.$store.state.userInfo.id,
         year: year,
         term: term
       }

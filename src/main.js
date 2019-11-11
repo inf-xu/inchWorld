@@ -12,6 +12,30 @@ Vue.use(VueAMap);
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
+const store = new Vuex.Store({
+    state: {
+        userInfo: {
+            id: '',
+            name: '',
+            zy: ''
+        }
+    },
+    mutations: {
+        addUserInfo(state, info) {
+            state.userInfo.name = info.xm
+            state.userInfo.zy = info.zymcy
+        },
+        addUserId(state, id) {
+            state.userInfo.id = id
+        }
+    },
+    getters: {
+        getUserInfo(state) {
+            return id = state.userInfo.id
+        }
+    }
+})
+
 import app from './App.vue'
 //import app from './components/login/login.vue'
 import VueResource from 'vue-resource'
@@ -41,4 +65,5 @@ const vm = new Vue({
     el: '#app',
     render: c => c(app),
     router,
+    store
 })
