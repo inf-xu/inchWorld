@@ -61,7 +61,7 @@ export default {
 
 .v-enter-active,
 .v-leave-active {
-  transition: all 1s ease;
+  transition: all 0.6s ease;
 }
 
 .mui-bar-tab .mui-tab-item-llb .mui-active {

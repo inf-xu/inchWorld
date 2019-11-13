@@ -42,6 +42,7 @@
 <script>
 import electronSearch from "../subcomponents/HandleSearch.vue";
 import electronInfo from "../subcomponents/Info.vue";
+import { Toast } from "mint-ui"
 
 export default {
   data() {

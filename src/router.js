@@ -6,9 +6,12 @@ import TodoContainer from './components/tabbar/TodoContainer.vue'
 import UserContainer from './components/tabbar/UserContainer.vue'
 import Voluntary from './components/home/Voluntary.vue'
 import Electron from './components/home/Electron.vue'
+import Syllabus from './components/home/Syllabus.vue'
 import Physical from './components/user/Physical.vue'
 import Score from './components/user/Score.vue'
 import Book from './components/user/Book.vue'
+import About from './components/user/About.vue'
+import Privary from './components/user/Privary.vue'
 
 const router = new VueRouter({
     routes: [ 
@@ -37,6 +40,10 @@ const router = new VueRouter({
             component: Voluntary
         },
         {
+            path: '/home/syllabus',
+            component: Syllabus
+        },
+        {
             path: '/home/electron',
             component: Electron
         },
@@ -51,6 +58,14 @@ const router = new VueRouter({
         {
             path: '/user/book',
             component: Book
+        },
+        {
+            path: '/about',
+            component: About
+        },
+        {
+            path: '/privary',
+            component: Privary
         },
 
     ],

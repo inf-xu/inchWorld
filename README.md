@@ -4,7 +4,7 @@
 
 ### 前端 -- 基于 `Vue.js+Webpack+mui+mint`开发
 
-![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE9b79d88a5b7f966e887a6e5b3633cdde/245)
+![HiShoot_20191113_231632.png](https://i.loli.net/2019/11/13/cZYvXVTHG4i9qwx.png)
 
 如果用过《麻雀笔记》的同学一定有熟悉的感觉，我个人非常喜欢这一款笔记，然后就把页面给Copy了下来，虽然没有大佬画得好，但是重在实用嘛。
 
@@ -21,19 +21,21 @@
 
 一开始还准备加一个打卡数据的，但是目前学校换成了步道乐跑，就没有加入这个功能。
 
-![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE3c4e86776a441472d8611cdd1ba93d8a/249)
+![HiShoot_20191113_231214.png](https://i.loli.net/2019/11/13/kNYu1tTRrxdcGWH.png)
 
-功能比较简单，为了加大前端人员的工作量，于是让他加了一个TODO功能，怎么说呢，按需使用吧。
+功能比较简单，为了加大前端人员的工作量，于是让他加了一个TODO功能，怎么说呢，按需使用吧。课表界面实在是做的草率，版本v1.0.0可能真的只能显示当前周，抱歉！！！
 
 接下来就是一大波图片了
 
-![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE104c981ae2ee9044da5842875c28c2e8/255)
+![HiShoot_20191113_231848.png](https://i.loli.net/2019/11/13/Qok2NVKz1gCwG7i.png)
 
-![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE0c1c78eb75c4e56b4794ac26de14ea95/251)
+![HiShoot_20191113_230855.png](https://i.loli.net/2019/11/13/RwIfhJO8ozlBEdx.png)
 
-![](https://note.youdao.com/yws/public/resource/f7203e9764b97de5a929d6fe8b56c508/xmlnote/WEBRESOURCE6dc438d80203b7b818a3eadb16d54e0a/257)
+![]( https://i.loli.net/2019/11/13/UrTBLV4sidoC2nJ.png )
 
-对了，这里面的图片你们换不了，不仅因为都是我的审美加的，最主要的是我都没写数据库，你们上传图片我也存不了。没写数据库的原因不说了，一定是为了防止后端人员不加密就把用户名和密码存进去，为了安全着想。
+界面也许不尽人意，如果你有新的设计或者想法的话，我可以提供后端API，你可以根据自身的喜好设计满意的界面；如果你已经使用了一段时间，发现有时候有使用不顺畅的问题，这里我想说一声抱歉，个人开发者实在没有那么多钱去购买服务器；关于操作和使用，目前在APP的帮助界面和首页都有相关介绍...
+
+如果你是一名前端开发者，看到了我的`Vue`代码，请不要喷我。这个是我刚在B站学完`Vue.js`后直接上手的一个小项目，目前风格和写法都是教我的老师带给我的，可能比较新手，海涵。请不要问我为什么不用`Webpack`脚手架，不是我不会搭建，当自己去各个官网去搜索配置文件写法的时候，其实真的可以学习很多。
 
 ### 后端 -- 基于`Node`开发
 
@@ -41,10 +43,12 @@ Node开发后端看起来似乎比较异类，在一堆语言中，选择Node也
 
 **说明：**后端代码没有开源，但不意味着并不安全，只不过代码写的过于杂乱，我自己都不想再看一遍，就不拿出来献丑了。说用到的技术基本可以说为零，我拿到的数据都是通过爬取各个网页数据，进行整合然后返回给前端处理。这里说一下所用技术:
 
->1. request + cheerio ：获取网页数据
+>1. `request + cheerio `：获取网页数据和分析
 >2. 没了
 
-我仔细看了一下，好像就只有这些了。我还在犹豫要不要加个数据库的功夫，代码已经被我翻完了。
+我仔细看了一下，好像就只有这些了。我还在犹豫要不要加个数据库的功夫，代码已经被我翻完了。代码简陋到我无法直视，算了就这样吧，这个项目应该会长期维护，等我使用`Java`重写一遍的时候应该会开源吧。
+
+
 
 ### 最后
 

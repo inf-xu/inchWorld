@@ -52,11 +52,6 @@ export default {
     this.getTodoList();
   },
   methods: {
-    /**
-     * 这里我有一个选择，我到底要不要连接数据库？
-     * 因为我这个项目我其实不想使用数据库，服务器走一趟就好了，
-     * 对于这个Todo，目前我先使用localstorage
-     */
     getTodoList() {
       this.todoList = JSON.parse(
         localStorage.getItem("todos") || this.todoList

@@ -21,27 +21,25 @@
       </div>
     </div>
 
-    <div>
-      <div class="mui-card" v-for="(i, index) in arr" :key="index">
-        <div class="mui-card-header">
-          {{arr[index]}}
-          <mt-spinner type="fading-circle"></mt-spinner>
-        </div>
-        <div class="mui-card-content">
-          <div class="mui-card-content-inner">
-            <table class="table table-striped">
-              <tr>
-                <th>义工项目</th>
-                <th>时间</th>
-                <th>义工时</th>
-              </tr>
-              <tr v-for="(item, j) in (voluntaryList[arr[index]])" :key="j">
-                <td>{{item.name}}</td>
-                <td>{{item.time}}</td>
-                <td>{{item.score}}</td>
-              </tr>
-            </table>
-          </div>
+    <div class="mui-card" v-for="(i, index) in arr" :key="index">
+      <div class="mui-card-header">
+        {{arr[index]}}
+        <mt-spinner type="fading-circle"></mt-spinner>
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <table class="table table-striped">
+            <tr>
+              <th>义工项目</th>
+              <th>时间</th>
+              <th>义工时</th>
+            </tr>
+            <tr v-for="(item, j) in (voluntaryList[arr[index]])" :key="j">
+              <td>{{item.name}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.score}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -50,7 +48,7 @@
 
 <script>
 import { Toast } from "mint-ui";
-import volSearch from "../subcomponents/HandleSearch.vue"
+import volSearch from "../subcomponents/HandleSearch.vue";
 
 export default {
   data() {
@@ -68,8 +66,8 @@ export default {
   methods: {
     getVoluntaryList() {
       const user = {
-        id: "2017117203",
-        name: "胡毅"
+        id: this.$store.state.userInfo.id,
+        name: this.$store.state.userInfo.name
       };
       this.$http
         .post("api/voluntary", user)

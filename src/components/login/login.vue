@@ -4,7 +4,6 @@
       <a>
         <img
           src="https://tse1-mm.cn.bing.net/th?id=OIP.Y8i8YSO13-l6bfdCYcoS3gHaEK&w=300&h=168&c=7&o=5&dpr=1.25&pid=1.7"
-          alt
         />
       </a>
       <h1>方寸之间</h1>
@@ -17,7 +16,7 @@
           class="form-control"
           v-model="name"
           name="text"
-          placeholder="accid"
+          placeholder="学号"
           autofocus
         />
       </div>
@@ -31,11 +30,8 @@
           class="form-control"
           v-model="password"
           name="password"
-          placeholder="password"
+          placeholder="密码"
         />
-      </div>
-      <div class="checkbox">
-        <mt-switch>记住我</mt-switch>
       </div>
       <button type="submit" class="btn btn-success btn-block submit" @click.prevent="login()">登陆</button>
     </form>
@@ -51,12 +47,6 @@ export default {
       name: "",
       password: ""
     };
-  },
-  created() {
-     document.body.addEventListener('touchmove', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false });
   },
   methods: {
     forgetPwd() {
@@ -90,8 +80,6 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  height: 100%;
-  overflow: hidden;
   width: 340px;
   margin: 0 auto;
   margin-top: 50px;

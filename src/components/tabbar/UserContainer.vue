@@ -2,8 +2,8 @@
   <div class="user-container">
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner head-img" @click="yh_info">
-          <img src="../../assets/about-daisy.jpg" />
+        <div class="mui-card-content-inner head-img">
+          <img src="../../assets/about-daisy.jpg" @click="yh_info" />
           <div class="mui-media-body">
             {{ user.xm }}
             <p>{{ user.zymc }}</p>
@@ -46,17 +46,21 @@
         <div class="mui-card-content-inner">
           <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell">
-              <router-link href="#privacy" class="mui-navigate-right" to="/privacy">隐私</router-link>
+              <router-link class="mui-navigate-right" to="/privary">隐私</router-link>
             </li>
             <li class="mui-table-view-cell">
-              <router-link href="#general" class="mui-navigate-right" to="/about">帮助</router-link>
+              <a
+                href="https://github.com/KDaisyers/inchWorld"
+                target="_block"
+                class="mui-navigate-right"
+              >帮助</a>
             </li>
           </ul>
           <ul class="mui-table-view mui-table-view-chevron">
             <li class="mui-table-view-cell">
-              <router-link href="#about" class="mui-navigate-right" to="/about">
+              <router-link class="mui-navigate-right" to="/about">
                 关于方寸
-                <router-link class="mui-pull-right update" to="/about">V1.1.0</router-link>
+                <a class="mui-pull-right update">V1.1.0</a>
               </router-link>
             </li>
           </ul>
@@ -83,20 +87,20 @@ export default {
   data() {
     return {
       user: {}
-    }
+    };
   },
   created() {
-    this.getUserInfo()
+    this.getUserInfo();
   },
   methods: {
     getUserInfo() {
       this.user = {
-        xm: this.$store.state.userInfo.id,
+        xm: this.$store.state.userInfo.name,
         zymc: this.$store.state.userInfo.zy
-      }
+      };
     },
     yh_info() {
-      Toast('头像你是不可能换的啦')
+      Toast("头像你是不可能换的啦");
     }
   }
 };
@@ -105,6 +109,9 @@ export default {
 <style lang="scss" scoped>
 .user-container {
   .mui-card {
+    a {
+      text-decoration: none;
+    }
     .head-img {
       display: flex;
       flex-direction: row;

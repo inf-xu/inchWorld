@@ -1,6 +1,6 @@
 <template>
   <div>
-      <bookSearch @getText="getBookList" :info="'password'" :type="'text'"></bookSearch>
+      <bookSearch @getText="getBookList" :info="'book'" :type="'text'"></bookSearch>
 
       <bookInfo :info="'请输入要查询的图书名,例如<strong>人月神话</strong>'" v-show="!flag"></bookInfo>
 

@@ -3,9 +3,19 @@
     <!-- 卡片: 提示学生重要考试 -->
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner strong-info">
-          距离六级考试还有
-          <strong>37</strong>天
+        <div class="mui-card-content-inner strong-info" @click="flag=true">
+          <input
+            v-if="flag"
+            type="text"
+            v-model="inputText"
+            class="input-con"
+            @keyup.enter="flag=false"
+          />
+          <mt-button style="width:100%" v-if="flag" @click="open('datePicker')">选择日期</mt-button>
+          <div v-show="!flag">
+            距离{{ inputText == '' ? '六级考试' : inputText }}还有
+            <strong>{{ day == ''? 10 : day }}</strong>天
+          </div>
         </div>
       </div>
     </div>
@@ -40,48 +50,89 @@
     </div>
 
     <!-- 卡片: 提示 -->
-    <transition>
-      <div class="mui-card">
-        <div class="mui-card-header">Hi,你好呀!</div>
-        <div class="mui-card-content">
-          <div class="mui-card-content-inner">
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
-            <p>
-              &nbsp;&nbsp;&nbsp;&nbsp;《方寸》是我利用业余时间开发的一款软件，
-              开发的初衷是为了解决教务系统的繁琐，功能不全的问题。
-            </p>
-            <p>
-              &nbsp;&nbsp;&nbsp;&nbsp;记得大二刚开始的时候，一切从零开始，什么也不会但就是想把这个整出来。
-              所以大三这段时间就在想能不能开发一款app来帮助我归纳这些信息，
-              于是就有了它。
-            </p>
-          </div>
+    <div class="mui-card">
+      <div class="mui-card-header">很高兴见到你!</div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;这是一个聚合我们学校各个信息查询为一体的工具APP，也许你和我有一样的困扰，
+            就是一旦要查看自己课表、义工时和成绩时，就要在各个公众号找链接查询，一套功夫下来，甚至自己都忘了要干什么。
+          </p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;为了方便查询，我在业余开发了这一款工具，初衷就为了解放自己的双手，同时也是为了简化教务系统繁琐的操作。</p>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;可能是个人能力的原因，你使用时可能感到并不流畅，偶尔还会蹦出几个bug，界面也许不能让你满意，在这里我替UI设计师和开发者向你道歉，
+            个人开发者实在是没钱换服务器，但是我会尽最大的努力。
+          </p>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;由于不同系统之间密码可能不同，因此当你在查询体测成绩的时候，需输入体育系统的密码；当你查询自己寝室电费的时候，第一次需要手动输入密码；
+            当然如果你觉得每次查询都要输入较麻烦，你可以进入
+            <strong>我的</strong> 界面，填写寝室信息和体育系统密码。
+          </p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;你不用担心信息泄露问题，目前软件开源在github上，如果你在使用过程中出现了一些问题，可以向我提issue，感激不尽。</p>
         </div>
-        <div class="mui-card-footer right-info">——《方寸》</div>
       </div>
-    </transition>
+      <div class="mui-card-footer right-info">——《方寸》</div>
+    </div>
+
+    <mt-datetime-picker
+      v-model="currentDate"
+      type="date"
+      ref="datePicker"
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日"
+      @confirm="handleChange"
+    ></mt-datetime-picker>
   </div>
 </template>
 
 <script>
+import { Toast } from "mint-ui";
+
 export default {
   data() {
-    return {}
+    return {
+      flag: false,
+      inputText: "",
+      day: "",
+      currentDate: new Date()
+    };
   },
   created() {
-    this.getUserInfo()
+    this.getUserInfo();
+    if (this.$store.state.userInfo.day != undefined) {
+      const a = this.$store.state.userInfo.day;
+      const now = new Date();
+      this.day = Math.floor((a - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
+    }
   },
   methods: {
+    open(picker) {
+      this.$refs[picker].open();
+    },
     getUserInfo() {
-      const id = this.$store.state.userInfo.id
-      this.$http.get('api/userinfo/' + id).then( res => {
-        if (res.body.status === 0) {
-            const user = JSON.parse(res.body.message)
+      const id = this.$store.state.userInfo.id;
+      this.$http
+        .get("api/userinfo/" + id)
+        .then(res => {
+          if (res.body.status === 0) {
+            const user = JSON.parse(res.body.message);
             this.$store.commit("addUserInfo", user);
-          } 
-      }).catch(err => {
-        Toast('前方通道拥挤')
-      })
+          } else {
+            Toast("前方通道拥挤");
+          }
+        })
+        .catch(err => {
+          Toast("前方通道拥挤");
+        });
+    },
+    handleChange(value) {
+      const fut = new Date(this.currentDate).getTime();
+      const now = new Date();
+      this.day =
+        Math.floor((fut - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
+      this.$store.commit("addUserDay", fut);
     }
   }
 };
@@ -104,6 +155,9 @@ export default {
   transition: all 1s ease;
 }
 .home-container {
+  .input-con {
+    background-color: gray;
+  }
   .mui-icon {
     font-size: 10px;
   }
@@ -117,6 +171,7 @@ export default {
     text-align: center;
     strong {
       font-size: 25px;
+      margin: 10px 5px;
     }
   }
   .right-info {

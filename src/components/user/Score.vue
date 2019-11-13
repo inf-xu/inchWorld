@@ -26,7 +26,7 @@
     <div class="mui-card" v-for="(item, i) in scoreList" :key="i">
       <div class="mui-card-header">
         开课时间&nbsp;
-        <span>{{ scoreList[0][0].xqmc }}</span>
+        <span>{{ scoreList[i][0].xqmc }}</span>
       </div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">

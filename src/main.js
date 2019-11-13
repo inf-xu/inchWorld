@@ -12,32 +12,31 @@ Vue.use(VueAMap);
 Vue.use(VueRouter)
 Vue.use(Vuex)
 
+const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
+
 const store = new Vuex.Store({
     state: {
-        userInfo: {
-            id: '',
-            name: '',
-            zy: ''
-        }
+        userInfo: userInfo
     },
     mutations: {
         addUserInfo(state, info) {
             state.userInfo.name = info.xm
-            state.userInfo.zy = info.zymcy
+            state.userInfo.zy = info.zymc
+            state.userInfo.bj = info.bj
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
         addUserId(state, id) {
             state.userInfo.id = id
-        }
-    },
-    getters: {
-        getUserInfo(state) {
-            return id = state.userInfo.id
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+        },
+        addUserDay(state, day) {
+            state.userInfo.day = day
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         }
     }
 })
 
 import app from './App.vue'
-//import app from './components/login/login.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.http.options.root = 'http://localhost:3000'
