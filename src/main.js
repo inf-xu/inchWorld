@@ -16,9 +16,23 @@ const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
 const store = new Vuex.Store({
     state: {
-        userInfo: userInfo
+        userInfo: userInfo,
+        token: -1
     },
     mutations: {
+        setToken(state, token) {
+            sessionStorage.setItem("token", token);
+            state.token = token;
+        },
+        loginOut(state) {
+            sessionStorage.clear();
+            localStorage.removeItem('userInfo')
+            sessionStorage.remove("token")
+            localStorage.remove("localVoluntary")
+            state.userInfo = {}
+            localStorage.removeItem('todos')
+            state.token = -1
+        },
         addUserInfo(state, info) {
             state.userInfo.name = info.xm
             state.userInfo.zy = info.zymc
@@ -32,6 +46,19 @@ const store = new Vuex.Store({
         addUserDay(state, day) {
             state.userInfo.day = day
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+        },
+        addUserRome(state, rome) {
+            state.userInfo.rome = rome
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+        },
+        addUserPhysicall(state, phyPwd) {
+            state.userInfo.phyPwd = phyPwd
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
+        }
+    },
+    getters: {
+        token(state) {
+            return state.token
         }
     }
 })
@@ -60,9 +87,37 @@ Vue.filter('dataFormat', function (dataStr) {
 })
 
 import router from './router.js'
+
 const vm = new Vue({
     el: '#app',
     render: c => c(app),
     router,
     store
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireAuth) { 
+        if (sessionStorage.getItem("token")) { 
+            next();
+        } else {
+            if (to.path === '/login') {
+                next();
+            } else {
+                next({
+                    path: '/login'
+                })
+            }
+        }
+    } else {
+        next();
+    }
+    if (to.fullPath == "/login") {
+        if (sessionStorage.getItem("token")) {
+            next({
+                path: from.fullPath
+            });
+        } else {
+            next();
+        }
+    }
+});

@@ -4,7 +4,7 @@
 
 ### 前端 -- 基于 `Vue.js+Webpack+mui+mint`开发
 
-![HiShoot_20191113_231632.png](https://i.loli.net/2019/11/13/cZYvXVTHG4i9qwx.png)
+![A4D99D2F2181F7270641C324268881E8.png](https://i.loli.net/2019/11/16/bpkZe4wsSrfvLEu.png)
 
 如果用过《麻雀笔记》的同学一定有熟悉的感觉，我个人非常喜欢这一款笔记，然后就把页面给Copy了下来，虽然没有大佬画得好，但是重在实用嘛。
 

@@ -1,11 +1,5 @@
 <template>
   <div class="privary-container">
-    <mt-header fixed title="方寸" style="background-color: #CDCDCD;">
-      <span slot="left" @click="goBack">
-        <mt-button icon="back"></mt-button>
-      </span>
-    </mt-header>
-
     <div class="mui-card">
       <div class="mui-card-header">
         关于学号和密码问题
@@ -52,22 +46,13 @@
 
 <script>
 export default {
-  data() {
-    return {};
-  },
-  created() {},
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-    }
-  }
 };
 </script>
 
 <style lang="scss" scoped>
 .privary-container {
   .mui-card {
-    margin-top: 50px;
+    margin-top: 30px;
   }
 }
 </style>

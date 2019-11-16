@@ -103,7 +103,9 @@ export default {
       this.voluntaryList = o;
     },
     getLocalVoluntary() {
-      this.handleMsg(localStorage.getItem("localVoluntary"));
+      const localVol = localStorage.getItem("localVoluntary")
+      if (localVol != undefined)
+      this.handleMsg(localVol);
     },
     searchItem(str) {
       this.message.forEach(item => {

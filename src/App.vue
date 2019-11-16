@@ -28,8 +28,6 @@ export default {
   created() {
     this.flag = this.$route.path === "/login" ? false : true;
   },
-  methods: {
-  },
   watch: {
     "$route.path": function(newVal) {
       if (newVal === '/login') {

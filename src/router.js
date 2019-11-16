@@ -11,6 +11,7 @@ import Physical from './components/user/Physical.vue'
 import Score from './components/user/Score.vue'
 import Book from './components/user/Book.vue'
 import About from './components/user/About.vue'
+import Edit from './components/user/Edit.vue'
 import Privary from './components/user/Privary.vue'
 
 const router = new VueRouter({
@@ -25,19 +26,23 @@ const router = new VueRouter({
         },
         {
             path: '/home',
-            component: HomeContainer
+            component: HomeContainer,
+            meta:{requireAuth:true}
         },
         {
             path: '/todo',
-            component: TodoContainer
+            component: TodoContainer,
+            meta:{requireAuth:true}
+
         },
         {
             path: '/user',
-            component: UserContainer
+            component: UserContainer,
+            meta:{requireAuth:true}
         },
         {
             path: '/home/voluntary',
-            component: Voluntary
+            component: Voluntary,
         },
         {
             path: '/home/syllabus',
@@ -54,6 +59,10 @@ const router = new VueRouter({
         {
             path: '/user/score',
             component: Score
+        },
+        {
+            path: '/user/edit',
+            component: Edit
         },
         {
             path: '/user/book',

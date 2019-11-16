@@ -78,6 +78,14 @@ export default {
       detailFlag: false
     };
   },
+  created() {
+    const phyPwd = this.$store.state.userInfo.phyPwd
+    if(phyPwd != undefined) {
+      this.ipassword = phyPwd
+      this.getPhysicalList()
+      this.flag = true
+    }
+  },
   methods: {
     getPhysicalList(pwd) {
       this.ipassword = pwd

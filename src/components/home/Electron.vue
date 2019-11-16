@@ -1,6 +1,6 @@
 <template>
   <div class="electron-container">
-    <electronSearch @getText="getElectricbill" :info="'15-203'" :type="'text'"></electronSearch>
+    <electronSearch @getText="getTextFromSearch" :info="'15-203'" :type="'text'"></electronSearch>
 
     <div class="mui-card" v-show="flag">
       <div class="mui-card-header">{{name}}的电费情况</div>
@@ -27,7 +27,7 @@
     <electronInfo :info="'输入你的房间号,例如<strong>15-203</strong>'" v-show="!flag"></electronInfo>
 
 
-    <div class="mui-card">
+    <div class="mui-card" v-if="false">
       <div class="mui-card-content">
         <div class="amap-page-container">
           <el-amap vid="amapDemo" :center="center" :zoom="zoom" class="amap-demo">
@@ -59,10 +59,20 @@ export default {
       }
     };
   },
+  created() {
+    const rome = this.$store.state.userInfo.rome
+    if(rome != undefined) {
+      this.name = rome
+      this.getElectricbill()
+      this.flag = true
+    }
+  },
   methods: {
-    getElectricbill(materoom) {
+    getTextFromSearch(materoom) {
       this.name = materoom;
-
+      this.getElectricbill()
+    },
+    getElectricbill() {
       this.$http
         .get("api/electricbill/" + this.name)
         .then(res => {

@@ -13,6 +13,7 @@ module.exports = {
     // 除了在package.js中设置还可以在这里
     devServer: { // 配置热更新的第一步
         open: true,
+        // host: '169.254.31.123',
         // port: 3000,
         contentBase: 'src',
         hot: true

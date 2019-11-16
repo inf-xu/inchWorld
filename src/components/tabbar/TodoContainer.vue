@@ -53,8 +53,9 @@ export default {
   },
   methods: {
     getTodoList() {
+      if (localStorage.getItem("todos") != undefined)
       this.todoList = JSON.parse(
-        localStorage.getItem("todos") || this.todoList
+        localStorage.getItem("todos")
       );
     },
     submitTodo(nemTodo) {

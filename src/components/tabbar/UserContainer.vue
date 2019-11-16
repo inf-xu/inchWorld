@@ -8,6 +8,7 @@
             {{ user.xm }}
             <p>{{ user.zymc }}</p>
           </div>
+          <span class="mui-icon mui-icon-compose" @click="editUser"></span>
         </div>
       </div>
     </div>
@@ -72,7 +73,7 @@
       <div class="mui-card-content">
         <ul class="mui-table-view">
           <li class="mui-table-view-cell" style="text-align: center;">
-            <router-link to="/loginout">退出登录</router-link>
+            <a href="#" @click.prevent="loginout">退出登录</a>
           </li>
         </ul>
       </div>
@@ -101,6 +102,20 @@ export default {
     },
     yh_info() {
       Toast("头像你是不可能换的啦");
+    },
+    editUser() {
+      this.$router.push("/user/edit");
+    },
+    loginout() {
+      this.$http.get('api/loginout').then( res => {
+        if (res.body.status === 0) {
+          Toast("退出成功");
+          this.$store.commit("loginOut");
+          this.$router.push("/login");
+        }
+      }).catch(err => {
+        Toast("退出失败");
+      })
     }
   }
 };
@@ -113,14 +128,16 @@ export default {
       text-decoration: none;
     }
     .head-img {
+      margin-left: -30px;
       display: flex;
+      justify-content: space-around;
       flex-direction: row;
       height: 80px;
       img {
         width: 50px;
       }
       .mui-media-body {
-        margin-left: 20px;
+        margin-left: -60px;
       }
     }
     .mui-card-footer {

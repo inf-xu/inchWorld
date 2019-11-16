@@ -2,9 +2,7 @@
   <div class="main">
     <div class="header">
       <a>
-        <img
-          src="https://tse1-mm.cn.bing.net/th?id=OIP.Y8i8YSO13-l6bfdCYcoS3gHaEK&w=300&h=168&c=7&o=5&dpr=1.25&pid=1.7"
-        />
+        <img src="../../assets/logo.png" />
       </a>
       <h1>方寸之间</h1>
     </div>
@@ -40,31 +38,61 @@
 
 <script>
 import { Toast } from "mint-ui";
+import { JSEncrypt } from "jsencrypt";
 
 export default {
   data() {
     return {
       name: "",
-      password: ""
+      password: "",
+      publicKey: ""
     };
+  },
+  mounted: function() {
+    this.getKey().then(key => {
+      this.publicKey = key;
+      localStorage.setItem("pubKey", key);
+    });
   },
   methods: {
     forgetPwd() {
       Toast("看来你只能自己去图书馆重置密码了");
     },
+    getKey() {
+      return new Promise((reslove, reject) => {
+        this.$http
+          .get("api/key")
+          .then(res => {
+            if (res.body.status === 0) {
+              reslove(res.body.publicDer);
+            }
+            reject(0);
+          })
+          .catch(err => {
+            reject();
+          });
+      });
+    },
     login() {
       if (this.name.trim() == "" || this.password.trim() == "")
         return Toast("用户名或密码不能为空");
       const user = {
-        name: this.name.trim(),
-        password: this.password.trim()
+        name: this.name.trim()
       };
+      const pwd = this.password.trim();
+      let encryptor = new JSEncrypt();
+      const key = localStorage.getItem("pubKey");
+      encryptor.setPublicKey(key);
+      let encodemess = encryptor.encrypt(pwd);
+      user.password = encodemess;
+
       this.$http
-        .post("loginin", user)
+        .post("api/loginin", user)
         .then(res => {
           if (res.body.status === 0) {
             Toast(res.body.message);
             this.$store.commit("addUserId", user.name);
+            this.$store.commit("setToken", res.body.status);
             this.$router.push("/home");
           } else {
             Toast("用户名或密码错误");
@@ -92,8 +120,8 @@ export default {
       font-size: 35px;
     }
     img {
-      width: 100%;
-      height: 100%;
+      width: 200px;
+      height: 200px;
     }
   }
   form {
