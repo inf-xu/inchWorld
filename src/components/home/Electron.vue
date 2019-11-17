@@ -27,7 +27,7 @@
     <electronInfo :info="'输入你的房间号,例如<strong>15-203</strong>'" v-show="!flag"></electronInfo>
 
 
-    <div class="mui-card" v-if="false">
+    <div class="mui-card">
       <div class="mui-card-content">
         <div class="amap-page-container">
           <el-amap vid="amapDemo" :center="center" :zoom="zoom" class="amap-demo">

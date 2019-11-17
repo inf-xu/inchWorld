@@ -26,19 +26,19 @@
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/home/syllabus">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-regist"></span>
                 <div class="mui-media-body">课&nbsp;表</div>
               </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/home/voluntary">
                 <span class="mui-icon mui-icon-checkmarkempty"></span>
                 <div class="mui-media-body">义工时</div>
               </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/home/electron">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-classroom"></span>
                 <div class="mui-media-body">电&nbsp;费</div>

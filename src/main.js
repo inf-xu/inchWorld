@@ -17,21 +17,15 @@ const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 const store = new Vuex.Store({
     state: {
         userInfo: userInfo,
-        token: -1
     },
     mutations: {
         setToken(state, token) {
             sessionStorage.setItem("token", token);
-            state.token = token;
         },
         loginOut(state) {
             sessionStorage.clear();
             localStorage.removeItem('userInfo')
-            sessionStorage.remove("token")
-            localStorage.remove("localVoluntary")
             state.userInfo = {}
-            localStorage.removeItem('todos')
-            state.token = -1
         },
         addUserInfo(state, info) {
             state.userInfo.name = info.xm
@@ -39,8 +33,9 @@ const store = new Vuex.Store({
             state.userInfo.bj = info.bj
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
-        addUserId(state, id) {
-            state.userInfo.id = id
+        addUserId(state, user) {
+            state.userInfo.id = user.name
+            state.userInfo.password = user.password
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
         addUserDay(state, day) {
@@ -58,7 +53,7 @@ const store = new Vuex.Store({
     },
     getters: {
         token(state) {
-            return state.token
+            return sessionStorage.getItem("token")
         }
     }
 })
@@ -66,7 +61,7 @@ const store = new Vuex.Store({
 import app from './App.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://localhost:3000'
+Vue.http.options.root = 'http://192.168.43.178:3000'
 Vue.http.options.emulateJSON = true
 
 import MintUI from 'mint-ui'

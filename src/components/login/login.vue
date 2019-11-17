@@ -48,11 +48,19 @@ export default {
       publicKey: ""
     };
   },
-  mounted: function() {
+  created() {
     this.getKey().then(key => {
       this.publicKey = key;
       localStorage.setItem("pubKey", key);
     });
+
+    if(localStorage.getItem('userInfo')) {
+      const user = {
+        name: this.$store.state.userInfo.id,
+        password: this.$store.state.userInfo.password
+      }
+      this.reqLogin(user)
+    }
   },
   methods: {
     forgetPwd() {
@@ -85,13 +93,15 @@ export default {
       encryptor.setPublicKey(key);
       let encodemess = encryptor.encrypt(pwd);
       user.password = encodemess;
-
+      this.reqLogin(user)
+    },
+    reqLogin(user) {
       this.$http
         .post("api/loginin", user)
         .then(res => {
           if (res.body.status === 0) {
             Toast(res.body.message);
-            this.$store.commit("addUserId", user.name);
+            this.$store.commit("addUserId", user);
             this.$store.commit("setToken", res.body.status);
             this.$router.push("/home");
           } else {
@@ -110,7 +120,7 @@ export default {
 .main {
   width: 340px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 80px;
   color: #333;
   background-color: #fdfdfd;
   .header {

@@ -17,19 +17,19 @@
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/user/score">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-university"></span>
                 <div class="mui-media-body">查成绩</div>
               </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/user/physical">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-rank"></span>
                 <div class="mui-media-body">查体测</div>
               </router-link>
             </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
               <router-link to="/user/book">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-xiaoshuo"></span>
                 <div class="mui-media-body">查图书</div>
