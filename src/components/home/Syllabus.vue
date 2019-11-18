@@ -1,6 +1,6 @@
 <template>
   <div class="syllabus-caontainer">
-      <div class="mui-card" v-for="i in 6" :key="i">
+      <div class="mui-card" v-for="i in 7" :key="i">
         <div class="mui-card-header"><span>周{{i}}</span>第{{weekly}}周</div>
         <div class="mui-card-content">
           <div class="mui-card-content-inner" v-for="(item, j) in filterArr[i]" :key="j">
@@ -66,7 +66,7 @@ export default {
         .then(res => {
           if (res.body.status === 0) {
             this.syllsbusList = JSON.parse(res.body.message);
-            let arr = [[], [], [], [], [], []];
+            let arr = [[], [], [], [], [], [], [], []];
             this.syllsbusList.forEach(item => {
               const week = item.kcsj.substring(0, 1);
               const info = {

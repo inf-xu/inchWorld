@@ -49,17 +49,19 @@ export default {
     };
   },
   created() {
-    this.getKey().then(key => {
-      this.publicKey = key;
-      localStorage.setItem("pubKey", key);
-    });
-
     if(localStorage.getItem('userInfo')) {
       const user = {
         name: this.$store.state.userInfo.id,
         password: this.$store.state.userInfo.password
       }
-      this.reqLogin(user)
+      //this.reqLogin(user)
+      this.$router.push("/home");
+      this.$store.commit("setToken", 0);
+    } else {
+      this.getKey().then(key => {
+      this.publicKey = key;
+      localStorage.setItem("pubKey", key);
+    });
     }
   },
   methods: {

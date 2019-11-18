@@ -61,7 +61,7 @@ const store = new Vuex.Store({
 import app from './App.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://192.168.43.178:3000'
+Vue.http.options.root = 'http://xx.xx.xx.xx:3000'
 Vue.http.options.emulateJSON = true
 
 import MintUI from 'mint-ui'
@@ -90,6 +90,8 @@ const vm = new Vue({
     store
 })
 
+/* 
+?????????? -- ????
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) { 
         if (sessionStorage.getItem("token")) { 
@@ -115,4 +117,4 @@ router.beforeEach((to, from, next) => {
             next();
         }
     }
-});
+}); */
