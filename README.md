@@ -45,7 +45,7 @@
 
 上线服务器，目前部署在腾讯云1核2G的云主机上，由于带宽原因访问可能并不流畅，再加上是H5打包APP，没有安卓原生流畅，这个实在是抱歉。
 
-这里放一个下载连接[]( https://www.lanzous.com/i7frjve )
+这里放一个下载连接[https://www.lanzous.com/i7frjve](https://www.lanzous.com/i7frjve)
 
 ### 后端 -- 基于`Node`开发
 
