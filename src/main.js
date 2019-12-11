@@ -61,7 +61,7 @@ const store = new Vuex.Store({
 import app from './App.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://xx.xx.xx.xx:3000'
+Vue.http.options.root = 'http://xxx.xx.xx.xx'
 Vue.http.options.emulateJSON = true
 
 import MintUI from 'mint-ui'
