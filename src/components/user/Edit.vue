@@ -20,15 +20,15 @@
               </a>
             </li>
             <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">
+              <a>
                 班级
-                <span class="mui-pull-right head">{{ user.class }}</span>
+                <span class="mui-pull-right">{{ user.class }}</span>
               </a>
             </li>
             <li class="mui-table-view-cell">
-              <a class="mui-navigate-right">
+              <a>
                 专业
-                <span class="mui-pull-right head">{{ user.majorCl }}</span>
+                <span class="mui-pull-right">{{ user.majorCl }}</span>
               </a>
             </li>
           </ul>

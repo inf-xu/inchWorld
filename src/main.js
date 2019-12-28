@@ -38,10 +38,6 @@ const store = new Vuex.Store({
             state.userInfo.password = user.password
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
-        addUserDay(state, day) {
-            state.userInfo.day = day
-            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
-        },
         addUserRome(state, rome) {
             state.userInfo.rome = rome
             localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
@@ -61,7 +57,7 @@ const store = new Vuex.Store({
 import app from './App.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-Vue.http.options.root = 'http://xxx.xx.xx.xx'
+Vue.http.options.root = 'http://localhost/'
 Vue.http.options.emulateJSON = true
 
 import MintUI from 'mint-ui'

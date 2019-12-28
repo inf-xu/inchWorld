@@ -3,19 +3,9 @@
     <!-- 卡片: 提示学生重要考试 -->
     <div class="mui-card">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner strong-info" @click="flag=true">
-          <input
-            v-if="flag"
-            type="text"
-            v-model="inputText"
-            class="input-con"
-            @keyup.enter="flag=false"
-          />
-          <mt-button style="width:100%" v-if="flag" @click="open('datePicker')">选择日期</mt-button>
-          <div v-show="!flag">
-            距离{{ inputText == '' ? '六级考试' : inputText }}还有
-            <strong>{{ day == ''? 10 : day }}</strong>天
-          </div>
+        <div class="mui-card-content-inner strong-info">
+            距离考研还有
+            <strong>{{ day }}</strong>天
         </div>
       </div>
     </div>
@@ -74,16 +64,6 @@
       </div>
       <div class="mui-card-footer right-info">——《方寸》</div>
     </div>
-
-    <mt-datetime-picker
-      v-model="currentDate"
-      type="date"
-      ref="datePicker"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleChange"
-    ></mt-datetime-picker>
   </div>
 </template>
 
@@ -94,23 +74,14 @@ export default {
   data() {
     return {
       flag: false,
-      inputText: "",
       day: "",
-      currentDate: new Date()
     };
   },
   created() {
-    this.getUserInfo();
-    if (this.$store.state.userInfo.day != undefined) {
-      const a = this.$store.state.userInfo.day;
-      const now = new Date();
-      this.day = Math.floor((a - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
-    }
+    this.getUserInfo()
+    this.awayLast()
   },
   methods: {
-    open(picker) {
-      this.$refs[picker].open();
-    },
     getUserInfo() {
       const id = this.$store.state.userInfo.id;
       this.$http
@@ -127,12 +98,14 @@ export default {
           Toast("前方通道拥挤");
         });
     },
-    handleChange(value) {
-      const fut = new Date(this.currentDate).getTime();
-      const now = new Date();
-      this.day =
-        Math.floor((fut - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
-      this.$store.commit("addUserDay", fut);
+    awayLast() {
+      const now = new Date()
+      const dayYear = now.getFullYear()
+      let ky = new Date(dayYear+'-12-21')
+      if (ky < now) {
+        ky = new Date((dayYear + 1)+'-12-21')
+      }
+      this.day = Math.floor((ky - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
     }
   }
 };

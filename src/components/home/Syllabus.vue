@@ -4,7 +4,7 @@
         <div class="mui-card-header"><span>周{{i}}</span>第{{weekly}}周</div>
         <div class="mui-card-content">
           <div class="mui-card-content-inner" v-for="(item, j) in filterArr[i]" :key="j">
-            <span>{{ item.index }} &nbsp;&nbsp; {{item.teacher}} &nbsp;&nbsp; {{item.course}}</span>
+            <span>{{ item.index }} &nbsp;&nbsp; {{item.address}} &nbsp;&nbsp; {{item.teacher}} &nbsp;&nbsp; {{item.course}}</span>
           </div>
         </div>
       </div>
@@ -36,7 +36,10 @@ export default {
   methods: {
     getClassNum() {
       const now = new Date();
-      const startData = now.getFullYear() + "-09-01";
+      let startData = now.getFullYear() + "-09-01";
+      if ((now.getMonth + 1) < 8) {
+        startData = now.getFullYear() + "-02-17"
+      }
       const num = new Date(startData);
       let offset = 0;
       if (num == 0) {
@@ -58,7 +61,7 @@ export default {
     getSyllabusList() {
       this.weekly = this.getClassNum();
       const formData = {
-        bj: this.$store.state.userInfo.bj,
+        id: this.$store.state.userInfo.id,
         zc: this.weekly
       };
       this.$http

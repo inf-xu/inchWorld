@@ -68,15 +68,19 @@ export default {
   methods: {
     getScoreList() {
       const id = this.$store.state.userInfo.id;
+      const data = {
+        id: id,
+        updateFlag: this.isUpdate()
+      }
       this.$http
-        .get("api/system/" + id)
+        .post("api/system", data)
         .then(res => {
           if (res.body.status === 0) {
-            this.scoreList = JSON.parse(res.body.message);
+            this.scoreList = JSON.parse(res.body.message)
           }
         })
         .catch(err => {
-          Toast("等等，我去服务商交钱去");
+          Toast("等等，我去服务商交钱去")
         });
     },
     searchItem(text) {
@@ -88,6 +92,21 @@ export default {
           }
         });
       });
+    },
+    isUpdate() {
+      const today = new Date()
+      const year = today.getFullYear()
+      const lowTime1 = new Date(year+"-12-10")
+      const highTime1 = new Date(year+"-12-29")
+      const lowTime2 = new Date(year+"-8-10")
+      const highTime2 = new Date(year+"-8-20")
+
+      if (today > lowTime1 && today < highTime1) {
+        return true
+      } else if (today > lowTime2 && today < highTime2) {
+        return true
+      }
+      return false
     }
   },
   components: {
