@@ -60,6 +60,9 @@ export default {
     },
     getSyllabusList() {
       this.weekly = this.getClassNum();
+      if (this.weekly > 18) {
+        this.weekly = 18
+      }
       const formData = {
         id: this.$store.state.userInfo.id,
         zc: this.weekly
