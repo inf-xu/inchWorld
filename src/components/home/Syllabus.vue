@@ -1,13 +1,16 @@
 <template>
   <div class="syllabus-caontainer">
-      <div class="mui-card" v-for="i in 7" :key="i">
-        <div class="mui-card-header"><span>周{{i}}</span>第{{weekly}}周</div>
-        <div class="mui-card-content">
-          <div class="mui-card-content-inner" v-for="(item, j) in filterArr[i]" :key="j">
-            <span>{{ item.index }} &nbsp;&nbsp; {{item.address}} &nbsp;&nbsp; {{item.teacher}} &nbsp;&nbsp; {{item.course}}</span>
-          </div>
+    <div class="mui-card" v-for="i in 7" :key="i">
+      <div class="mui-card-header">
+        <span>周{{i}}</span>
+        第{{weekly}}周
+      </div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner" v-for="(item, j) in filterArr[i]" :key="j">
+          <span>{{ item.index }} &nbsp;&nbsp; {{item.address}} &nbsp;&nbsp; {{item.teacher}} &nbsp;&nbsp; {{item.course}}</span>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -36,9 +39,12 @@ export default {
   methods: {
     getClassNum() {
       const now = new Date();
-      let startData = now.getFullYear() + "-09-01";
-      if ((now.getMonth + 1) < 8) {
-        startData = now.getFullYear() + "-02-17"
+      let nowYear = now.getFullYear();
+      let startData = nowYear + "-09-01";
+      if (now.getMonth() + 1 < 2) {
+        startData = nowYear - 1 + "-09-01";
+      } else if (now.getMonth() + 1 < 8) {
+        startData = nowYear + "-02-17";
       }
       const num = new Date(startData);
       let offset = 0;
@@ -61,7 +67,7 @@ export default {
     getSyllabusList() {
       this.weekly = this.getClassNum();
       if (this.weekly > 18) {
-        this.weekly = 18
+        this.weekly = 18;
       }
       const formData = {
         id: this.$store.state.userInfo.id,
