@@ -54,7 +54,7 @@ export default {
         name: this.$store.state.userInfo.id,
         password: this.$store.state.userInfo.password
       }
-      //this.reqLogin(user)
+      this.reqLogin(user)
       this.$router.push("/home");
       this.$store.commit("setToken", 0);
     } else {
