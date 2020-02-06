@@ -53,6 +53,11 @@ export default {
 .privary-container {
   .mui-card {
     margin-top: 30px;
+    border-radius: 10px;
+    .mui-card-header {
+      background-color: #ccc;
+      color: white;
+    }
   }
 }
 </style>

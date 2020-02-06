@@ -118,11 +118,14 @@ export default {
 <style lang="scss" scoped>
 .score-class {
   .mui-card {
+    border-radius: 10px;
     .mui-card-header {
       font-size: 16px;
       font-weight: bold;
       display: flex;
       justify-content: space-between;
+      background-color: #ccc;
+      color: white;
     }
     th {
       word-break: keep-all;

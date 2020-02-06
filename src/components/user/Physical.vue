@@ -32,7 +32,9 @@
               <td>{{ item.year }}-{{ item.term }}</td>
               <td>{{ item.score }}</td>
               <td>{{ item.grade }}</td>
-              <td><a href="#" @click.prevent="clickTerm(item.year, item.term)">查看</a></td>
+              <td>
+                <a href="#" @click.prevent="clickTerm(item.year, item.term)">查看</a>
+              </td>
             </tr>
           </table>
         </div>
@@ -72,34 +74,36 @@ export default {
     return {
       physicalList: [],
       flag: false,
-      ipassword: '',
-      yearTerm: '',
+      ipassword: "",
+      yearTerm: "",
       physicalDetail: [],
       detailFlag: false
     };
   },
   created() {
-    const phyPwd = this.$store.state.userInfo.phyPwd
-    if(phyPwd != undefined) {
-      this.ipassword = phyPwd
-      this.getPhysicalList()
-      this.flag = true
+    const phyPwd = this.$store.state.userInfo.phyPwd;
+    if (phyPwd != undefined) {
+      this.ipassword = phyPwd;
+      this.getPhysicalList();
+      this.flag = true;
     }
   },
   methods: {
     getPhysicalList(pwd) {
-      this.ipassword = pwd
+      this.ipassword = pwd;
       const user = {
         name: this.$store.state.userInfo.id,
         password: pwd
       };
 
       this.$http
-        .post('api/physical', user)
+        .post("api/physical", user)
         .then(res => {
           if (res.body.status === 0) {
-            this.physicalList = res.body.message
-            this.flag = true
+            this.physicalList = res.body.message;
+            console.log(res.body.message);
+            this.$store.commit("addUserPhysicall", this.ipassword);
+            this.flag = true;
           } else {
             Toast(res.body.message);
           }
@@ -113,12 +117,14 @@ export default {
         name: this.$store.state.userInfo.id,
         year: year,
         term: term
-      }
-      this.$http.post('api/physicaldetail', user).then(res => {
+      };
+      this.$http
+        .post("api/physicaldetail", user)
+        .then(res => {
           if (res.body.status === 0) {
-            this.physicalDetail = res.body.message
-            this.yearTerm = year + '-' + term
-            this.detailFlag = true
+            this.physicalDetail = res.body.message;
+            this.yearTerm = year + "-" + term;
+            this.detailFlag = true;
           } else {
             Toast(res.body.message);
           }
@@ -137,6 +143,11 @@ export default {
 <style lang="scss" scoped>
 .physical-container {
   .mui-card {
+    border-radius: 10px;
+    .mui-card-header {
+      background-color: #ccc;
+      color: white;
+    }
     .inner-info {
       text-align: center;
       strong {

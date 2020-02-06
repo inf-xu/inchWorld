@@ -72,7 +72,7 @@
     <div class="mui-card">
       <div class="mui-card-content">
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell" style="text-align: center;">
+          <li class="mui-table-view-cell login-out" style="text-align: center; color: white;">
             <a href="#" @click.prevent="loginout">退出登录</a>
           </li>
         </ul>
@@ -124,6 +124,7 @@ export default {
 <style lang="scss" scoped>
 .user-container {
   .mui-card {
+    border-radius: 10px;
     a {
       text-decoration: none;
     }
@@ -145,6 +146,9 @@ export default {
       justify-content: center;
       font-style: italic;
       font-weight: bold;
+    }
+    .login-out {
+      background-color: #1AAD19;
     }
   }
 }

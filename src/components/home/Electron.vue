@@ -79,6 +79,7 @@ export default {
           if (res.body.status === 0) {
             this.electricbill = res.body.message;
             this.flag = true;
+            this.$store.commit("addUserRome", this.name);
           } else {
             Toast("电费获取失败");
           }
@@ -97,6 +98,13 @@ export default {
 
 <style lang="scss" scoped>
 .electron-container {
+  .mui-card {
+    border-radius: 10px;
+    .mui-card-header {
+      background-color: #ccc;
+      color: white;
+    }
+  }
   .amap-demo {
     height: 400px;
   }

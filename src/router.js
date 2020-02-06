@@ -33,7 +33,6 @@ const router = new VueRouter({
             path: '/todo',
             component: TodoContainer,
             meta:{requireAuth:true}
-
         },
         {
             path: '/user',

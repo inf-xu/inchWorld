@@ -61,13 +61,13 @@ export default {
     };
   },
   created() {
-    this.getVoluntaryList(), this.getLocalVoluntary();
+    this.getVoluntaryList();
+    this.getLocalVoluntary();
   },
   methods: {
     getVoluntaryList() {
       const user = {
-        id: this.$store.state.userInfo.id,
-        name: this.$store.state.userInfo.name
+        id: this.$store.state.userInfo.id
       };
       this.$http
         .post("api/voluntary", user)
@@ -129,11 +129,14 @@ export default {
 <style lang="scss" scoped>
 .vol-container {
   .mui-card {
+    border-radius: 10px;
     .mui-card-header {
       font-size: 16px;
       font-weight: bold;
       display: flex;
       justify-content: space-between;
+      background-color: #ccc;
+      color: white;
     }
     th {
       word-break: keep-all;

@@ -4,15 +4,24 @@
       <router-view></router-view>
     </transition>
 
-    <nav class="mui-bar mui-bar-tab" v-show="flag">
+    <nav class="mui-bar mui-bar-tab mui-active" v-show="flag">
       <router-link class="mui-tab-item-llb" to="/home">
-        <span class="mui-icon mui-icon-home"></span>
+        <span
+          class="mui-icon mui-icon-home"
+          :class="{'path-active': (path === '/home' ? true : false)}"
+        ></span>
       </router-link>
       <router-link class="mui-tab-item-llb" to="/todo">
-        <span class="mui-icon mui-icon-extra mui-icon-extra-topic"></span>
+        <span
+          class="mui-icon mui-icon-extra mui-icon-extra-topic"
+          :class="{'path-active': (path === '/todo' ? true : false)}"
+        ></span>
       </router-link>
       <router-link class="mui-tab-item-llb" to="/user">
-        <span class="mui-icon mui-icon-person-filled"></span>
+        <span
+          class="mui-icon mui-icon-person-filled"
+          :class="{'path-active': (path === '/user' ? true : false)}"
+        ></span>
       </router-link>
     </nav>
   </div>
@@ -22,7 +31,8 @@
 export default {
   data() {
     return {
-      flag: false
+      flag: false,
+      path: this.$route.path
     };
   },
   created() {
@@ -30,10 +40,12 @@ export default {
   },
   watch: {
     "$route.path": function(newVal) {
-      if (newVal === '/login') {
-        this.flag = false
+      // console.log(newVal);
+      this.path = newVal;
+      if (newVal === "/login") {
+        this.flag = false;
       } else {
-        this.flag = true
+        this.flag = true;
       }
     }
   }
@@ -44,6 +56,10 @@ export default {
 .app-container {
   padding-bottom: 50px;
   overflow-x: hidden;
+}
+
+.path-active {
+  color: #1aad19;
 }
 
 .v-enter {

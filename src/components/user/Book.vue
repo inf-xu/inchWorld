@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="book-container">
       <bookSearch @getText="getBookList" :info="'book'" :type="'text'"></bookSearch>
 
       <bookInfo :info="'请输入要查询的图书名,例如<strong>人月神话</strong>'" v-show="!flag"></bookInfo>
@@ -62,10 +62,10 @@ export default {
             this.bookList = res.body.message
             this.flag = true
           } else {
-            Toast('服务器被炸了')
+            Toast('服务器繁忙,请稍后查询')
           }
       }).catch(err => {
-        Toast('服务器被炸了')
+        Toast('服务器繁忙,请稍后查询')
       })
     }
   },
@@ -77,5 +77,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.book-container {
+  .mui-card {
+    border-radius: 10px;
+    .mui-card-header {
+      background-color: #ccc;
+      color: white;
+    }
+  }
+}
 </style>

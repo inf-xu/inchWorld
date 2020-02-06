@@ -94,6 +94,11 @@ export default {
 <style lang="scss" scoped>
 .todo-container {
   .mui-card {
+    border-radius: 10px;
+    .mui-card-header {
+      background-color: #ccc;
+      color: white;
+    }
     .mui-slider-handle {
       display: flex;
       justify-content: space-between;

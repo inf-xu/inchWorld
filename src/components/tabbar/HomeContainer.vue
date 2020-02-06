@@ -41,10 +41,11 @@
 
     <!-- 卡片: 提示 -->
     <div class="mui-card">
-      <div class="mui-card-header">很高兴见到你!</div>
+      <div class="mui-card-header mui-card-header-bgc">很高兴见到你!</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;目前小程序已经上线，<strong>微信小程序搜索"方寸教务"</strong></p>
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;这是一个聚合我们学校各个信息查询为一体的工具APP，也许你和我有一样的困扰，
             就是一旦要查看自己课表、义工时和成绩时，就要在各个公众号找链接查询，一套功夫下来，甚至自己都忘了要干什么。
@@ -55,9 +56,7 @@
             个人开发者实在是没钱换服务器，但是我会尽最大的努力。
           </p>
           <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;由于不同系统之间密码可能不同，因此当你在查询体测成绩的时候，需输入体育系统的密码；当你查询自己寝室电费的时候，第一次需要手动输入密码；
-            当然如果你觉得每次查询都要输入较麻烦，你可以进入
-            <strong>我的</strong> 界面，填写寝室信息和体育系统密码。
+            &nbsp;&nbsp;&nbsp;&nbsp;由于不同系统之间密码可能不同，因此当你在查询体测成绩的时候，需输入体育系统的密码；当你查询自己寝室电费的时候，第一次需要手动输入密码.
           </p>
           <p>&nbsp;&nbsp;&nbsp;&nbsp;你不用担心信息泄露问题，目前软件开源在github上，如果你在使用过程中出现了一些问题，可以向我提issue，感激不尽。</p>
         </div>
@@ -128,6 +127,14 @@ export default {
   transition: all 1s ease;
 }
 .home-container {
+  .mui-card {
+    border-radius: 10px;
+     box-shadow: 0 3px 10px #888888;
+    .mui-card-header-bgc {
+      background-color: #ccc;
+      color: white;
+    }
+  }
   .input-con {
     background-color: gray;
   }
@@ -138,7 +145,8 @@ export default {
     text-decoration: none;
   }
   .strong-info {
-    background-color: rgba(83, 82, 81, 0.29);
+    // background-color: rgb(80, 30, 35);
+    background-color: rgba(83, 30, 35, 0.7);
     color: white;
     font-size: 17px;
     text-align: center;

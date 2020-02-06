@@ -1,5 +1,5 @@
 <template>
-  <div class="mui-card card-radius">
+  <div class="mui-card">
     <div class="mui-card-content">
       <div class="mui-card-content-inner strong-info">
         <div class="mui-input-row mui-search">
@@ -36,8 +36,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-radius {
-  border-bottom-left-radius: 10%;
-  border-bottom-right-radius: 10%;
-}
+// .card-radius {
+//     border-radius: 5px; 
+// }
 </style>
