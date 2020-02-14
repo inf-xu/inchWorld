@@ -22,7 +22,6 @@ Vue.use(VueTouch, {
 import app from './App.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
-// Vue.http.options.root = 'http://122.51.32.79:3000/'
 Vue.http.options.root = 'http://192.168.43.178:3000/'
 Vue.http.options.emulateJSON = true
 
