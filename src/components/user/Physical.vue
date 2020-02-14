@@ -1,83 +1,103 @@
 <template>
-  <div class="physical-container">
-    <todoSearch @getText="getPhysicalList" :info="'password'" :type="'password'"></todoSearch>
-
-    <div class="mui-card" v-show="!flag">
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner inner-info">
-          <p>
-            请输入你&nbsp;
-            <strong>体育系统</strong>&nbsp;&nbsp;&nbsp;的密码
-          </p>
-          <small>
-            如有疑问,请查看
-            <a href="#">隐私</a>
-          </small>
+  <div class="physical-container img-preview-vue">
+    <!-- nav -->
+    <header class="absolute-nav">
+      <div class="home-nav">
+        <div class="nav-left">
+          <span class="mui-icon iconfont icon-zuojiantou" @click.prevent="goback"></span>
         </div>
+        <div class="nav-right">
+          <div class="search bar8">
+            <form>
+              <input
+                type="password"
+                v-model="ipassword"
+                @keyup.enter="getPhysicalList()"
+                placeholder="体测密码"
+              />
+              <button type="button">
+                <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
+              </button>
+            </form>
+          </div>
+          <span
+            class="icon iconfont icon-bangzhu"
+            @click.prevent="tip()"
+            style="margin-left: 10px;"
+          ></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="sport-content nav-translate">
+      <div class="sport-li" v-for="(item, index) in physicalList" :key="index">
+        <div class="sport-user">
+          <img src="../../assets/logo03_i.png" @click.prevent="clickTerm(item.year, item.term)" />
+          <div class="right-user">
+            <span>襄大体育平台</span>
+            <p>{{calculateDate()}}</p>
+          </div>
+        </div>
+        <!-- <hr> -->
+        <div class="sport-info">
+          <span>在{{ item.year }}-{{ item.term }}学期中,你的体测成绩{{ item.grade }},得分{{ item.score }}.</span>
+          <span>点击头像或者图片显示对应学年度的体测详情。</span>
+          <img
+            src="https://s2.ax1x.com/2020/01/08/lgLUBD.jpg"
+            @click.prevent="clickTerm(item.year, item.term)"
+          />
+        </div>
+        <hr />
       </div>
     </div>
 
-    <div class="mui-card" v-show="flag">
-      <div class="mui-card-header">体测成绩</div>
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <table class="table table-striped">
-            <tr>
-              <th>学期</th>
-              <th>得分</th>
-              <th>等级</th>
-              <th>操作</th>
-            </tr>
-            <tr v-for="(item, j) in physicalList" :key="j">
-              <td>{{ item.year }}-{{ item.term }}</td>
-              <td>{{ item.score }}</td>
-              <td>{{ item.grade }}</td>
-              <td>
-                <a href="#" @click.prevent="clickTerm(item.year, item.term)">查看</a>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
+    <mt-popup class="popup" v-model="popupVisible" position="bottom" popup-transition="popup-fade">
+      <h4>提示</h4>
+      <p>由于教务系统和体育系统密码不同,另需输入体育系统的密码.</p>
+    </mt-popup>
 
-    <div class="mui-card" v-show="detailFlag">
-      <div class="mui-card-header">{{ yearTerm }}&nbsp;学年度</div>
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <table class="table table-striped">
-            <tr>
-              <th>项目</th>
-              <th>测试成绩</th>
-              <th>得分</th>
-              <th>等级</th>
-            </tr>
-            <tr v-for="(item, j) in physicalDetail" :key="j">
-              <td>{{ item.name }}</td>
-              <td>{{ item.testScore }}</td>
-              <td>{{ item.score }}</td>
-              <td>{{ item.grade }}</td>
-            </tr>
-          </table>
-        </div>
+    <mt-popup
+      v-model="popupDetail"
+      class="popup-detail"
+      position="center"
+      popup-transition="popup-fade"
+    >
+      <div class="voluntary-content">
+        <div>{{yearTerm}}</div>
+        <table class="table table-striped">
+          <tr>
+            <th>项目</th>
+            <th>测试成绩</th>
+            <th>得分</th>
+            <th>等级</th>
+          </tr>
+          <tr v-for="(item, j) in physicalDetail" :key="j">
+            <td>{{ item.name }}</td>
+            <td>{{ item.testScore }}</td>
+            <td>{{ item.score }}</td>
+            <td>{{ item.grade }}</td>
+          </tr>
+        </table>
       </div>
-    </div>
+    </mt-popup>
+
+    <div style="margin-top: 40px;height: 80px;"></div>
   </div>
 </template>
 
 <script>
-import todoSearch from "../subcomponents/HandleSearch.vue";
 import { Toast } from "mint-ui";
+import moment from "moment";
 
 export default {
   data() {
     return {
       physicalList: [],
-      flag: false,
       ipassword: "",
       yearTerm: "",
-      physicalDetail: [],
-      detailFlag: false
+      popupVisible: true,
+      popupDetail: false,
+      physicalDetail: []
     };
   },
   created() {
@@ -85,12 +105,26 @@ export default {
     if (phyPwd != undefined) {
       this.ipassword = phyPwd;
       this.getPhysicalList();
-      this.flag = true;
+      this.popupVisible = false;
     }
   },
   methods: {
-    getPhysicalList(pwd) {
-      this.ipassword = pwd;
+    goback() {
+      this.$router.go(-1)
+    },
+    tip() {
+      Toast({
+        message: "方寸:输入体育系统密码获得体测信息",
+        position: "center",
+        duration: 5000
+      });
+    },
+    calculateDate() {
+      return moment()
+        .format()
+        .substring(0, 10);
+    },
+    getPhysicalList() {
       const user = {
         name: this.$store.state.userInfo.id,
         password: pwd
@@ -100,10 +134,10 @@ export default {
         .post("api/physical", user)
         .then(res => {
           if (res.body.status === 0) {
-            this.physicalList = res.body.message;
-            console.log(res.body.message);
+            const key = this.$store.getters.key;
+            this.physicalList = JSON.parse(this.$aes.decrypt(res.body.message, key));
+            physicalList = res.body.message;
             this.$store.commit("addUserPhysicall", this.ipassword);
-            this.flag = true;
           } else {
             Toast(res.body.message);
           }
@@ -122,9 +156,10 @@ export default {
         .post("api/physicaldetail", user)
         .then(res => {
           if (res.body.status === 0) {
-            this.physicalDetail = res.body.message;
+            const key = this.$store.getters.key;
+            this.physicalDetail = JSON.parse(this.$aes.decrypt(res.body.message, key));
             this.yearTerm = year + "-" + term;
-            this.detailFlag = true;
+            this.popupDetail = true;
           } else {
             Toast(res.body.message);
           }
@@ -134,26 +169,10 @@ export default {
         });
     }
   },
-  components: {
-    todoSearch
-  }
+  components: {}
 };
 </script>
 
 <style lang="scss" scoped>
-.physical-container {
-  .mui-card {
-    border-radius: 10px;
-    .mui-card-header {
-      background-color: #ccc;
-      color: white;
-    }
-    .inner-info {
-      text-align: center;
-      strong {
-        font-style: italic;
-      }
-    }
-  }
-}
+
 </style>

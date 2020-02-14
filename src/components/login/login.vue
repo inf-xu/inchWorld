@@ -2,13 +2,17 @@
   <div class="main">
     <div class="header">
       <a>
-        <img src="../../assets/logo.png" />
+        <img src="../../assets/logo03_i.png" />
       </a>
-      <h1>方寸之间</h1>
+      <h2 style="color: #929292">
+        方
+        <small>寸</small>之
+        <small>间</small>
+      </h2>
     </div>
-    <form id="login_form">
+    <div class="form">
       <div class="form-group">
-        <label for>学号</label>
+        <!-- <label for>学号</label> -->
         <input
           type="text"
           class="form-control"
@@ -20,8 +24,8 @@
       </div>
       <div class="form-group">
         <div class="flex-pwd">
-          <label for>密码</label>
-          <a class="pull-right" href @click.prevent="forgetPwd()">忘记密码?</a>
+          <!-- <label for>密码</label> -->
+          <a class="pull-right" href @click.prevent="forgetPwd()">无法登陆?</a>
         </div>
         <input
           type="password"
@@ -31,8 +35,8 @@
           placeholder="密码"
         />
       </div>
-      <button type="submit" class="btn btn-success btn-block submit" @click.prevent="login()">登陆</button>
-    </form>
+      <mt-button type="primary" size="large" style="margin-top: 20px" @click.prevent="login()">登陆</mt-button>
+    </div>
   </div>
 </template>
 
@@ -49,24 +53,27 @@ export default {
     };
   },
   created() {
-    if(localStorage.getItem('userInfo')) {
-      const user = {
-        name: this.$store.state.userInfo.id,
-        password: this.$store.state.userInfo.password
-      }
-      this.reqLogin(user)
-      this.$router.push("/home");
-      this.$store.commit("setToken", 0);
-    } else {
-      this.getKey().then(key => {
-      this.publicKey = key;
-      localStorage.setItem("pubKey", key);
-    });
-    }
+    this.init();
   },
   methods: {
     forgetPwd() {
-      Toast("看来你只能自己去图书馆重置密码了");
+      this.$store.commit("loginOut");
+      this.init();
+      Toast("已清除缓存,请重新登陆");
+    },
+    init() {
+      if (localStorage.getItem("userInfo")) {
+        const user = {
+          name: this.$store.state.userInfo.id,
+          password: this.$store.state.userInfo.password
+        };
+        this.reqLogin(user);
+      } else {
+        this.getKey().then(key => {
+          this.publicKey = key;
+          localStorage.setItem("pubKey", key);
+        });
+      }
     },
     getKey() {
       return new Promise((reslove, reject) => {
@@ -95,16 +102,16 @@ export default {
       encryptor.setPublicKey(key);
       let encodemess = encryptor.encrypt(pwd);
       user.password = encodemess;
-      this.reqLogin(user)
+      this.reqLogin(user);
     },
     reqLogin(user) {
       this.$http
         .post("api/loginin", user)
         .then(res => {
           if (res.body.status === 0) {
-            Toast(res.body.message);
+            Toast("success");
             this.$store.commit("addUserId", user);
-            this.$store.commit("setToken", res.body.status);
+            this.$store.commit("setKey", res.body.message);
             this.$router.push("/home");
           } else {
             Toast("用户名或密码错误");
@@ -120,37 +127,32 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  width: 340px;
-  margin: 0 auto;
-  margin-top: 80px;
+  width: 100%;
+  height: 100%;
+  padding: 10% 5% 0;
   color: #333;
-  background-color: #fdfdfd;
   .header {
+    // width: 90%;
+    height: 50%;
     text-align: center;
-    margin-bottom: 20px;
-    h1 {
-      font-size: 35px;
-    }
+    margin: auto 0;
     img {
-      width: 200px;
-      height: 200px;
+      // margin: 20% 0;
+      width: 95%;
+      height: 95%;
     }
   }
-  form {
-    padding: 30px;
-    margin-bottom: 15px;
-    border: 1px solid #d8dee2;
-    border-radius: 5px;
-    background-color: #fff;
-    .flex-pwd {
-      display: flex;
-      justify-content: space-between;
+  .form {
+    height: 35%;
+    padding: 5% 10%;
+    margin: 10% 0 0;
+    input {
+      border-radius: 5px;
     }
     .pull-right {
+      display: flex;
+      flex-direction: row-reverse;
       font-size: 13px;
-    }
-    .submit {
-      margin-top: 40px;
     }
   }
 }

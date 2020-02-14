@@ -2,17 +2,22 @@ import VueRouter from 'vue-router'
 
 import Login from './components/login/login.vue'
 import HomeContainer from './components/tabbar/HomeContainer.vue'
-import TodoContainer from './components/tabbar/TodoContainer.vue'
 import UserContainer from './components/tabbar/UserContainer.vue'
+import SyllbusContainer from './components/tabbar/SyllbusContainer.vue'
+import RssContainer from './components/tabbar/RssContainer.vue'
 import Voluntary from './components/home/Voluntary.vue'
 import Electron from './components/home/Electron.vue'
-import Syllabus from './components/home/Syllabus.vue'
 import Physical from './components/user/Physical.vue'
+import RssList from './components/rss/RssList.vue'
+import RssDetail from './components/rss/RssDetail.vue'
 import Score from './components/user/Score.vue'
 import Book from './components/user/Book.vue'
 import About from './components/user/About.vue'
-import Edit from './components/user/Edit.vue'
 import Privary from './components/user/Privary.vue'
+import Collection from './components/user/Collection.vue'
+import CustomRss from './components/user/CustomRss.vue'
+import Setting from './components/user/Setting.vue'
+import OtherWeb from './components/subcomponents/OtherWeb.vue'
 
 const router = new VueRouter({
     routes: [ 
@@ -22,58 +27,94 @@ const router = new VueRouter({
         },
         {
             path: '/login',
-            component: Login
+            component: Login,
+            meta:{keepAlive:false}
         },
         {
             path: '/home',
             component: HomeContainer,
-            meta:{requireAuth:true}
+            meta:{requireAuth:true, keepAlive: true}
         },
         {
-            path: '/todo',
-            component: TodoContainer,
-            meta:{requireAuth:true}
+            path: '/syllbus',
+            component: SyllbusContainer,
+            meta:{requireAuth:true, keepAlive: false}
         },
         {
+            name: 'other',
+            path: '/other',
+            component: OtherWeb,
+            meta:{requireAuth:false, keepAlive: false}
+        },
+        {
+            path: '/rss',
+            component: RssContainer,
+            meta:{requireAuth:true, keepAlive: false}
+        },
+        {
+            path: '/rsslist/:id',
+            component: RssList,
+            meta:{keepAlive:false}
+        },
+        {
+            path: '/rssdetail/:name/:id',
+            component: RssDetail,
+            meta:{keepAlive:false}
+        },
+        { 
             path: '/user',
             component: UserContainer,
-            meta:{requireAuth:true}
+            meta:{requireAuth:true, keepAlive: true}
+        },
+        {
+            path: '/collection',
+            component: Collection,
+            meta:{keepAlive:false}
+        },
+        {
+            path: '/custom',
+            component: CustomRss,
+            meta:{keepAlive:false}
+        },
+        {
+            path: '/set',
+            component: Setting,
+            meta:{keepAlive:true}
         },
         {
             path: '/home/voluntary',
             component: Voluntary,
-        },
-        {
-            path: '/home/syllabus',
-            component: Syllabus
+            meta:{requireAuth:true, keepAlive: false}
         },
         {
             path: '/home/electron',
-            component: Electron
+            component: Electron,
+            meta:{keepAlive:true}
         },
         {
             path: '/user/physical',
-            component: Physical
+            component: Physical,
+            meta:{requireAuth:true, keepAlive: true}
         },
         {
             path: '/user/score',
-            component: Score
-        },
-        {
-            path: '/user/edit',
-            component: Edit
+            component: Score,
+            meta:{requireAuth:true, keepAlive: true}
         },
         {
             path: '/user/book',
-            component: Book
+            component: Book,
+            meta:{keepAlive:true}
         },
         {
             path: '/about',
-            component: About
+            component: About,
+            meta:{keepAlive: true}
         },
         {
             path: '/privary',
-            component: Privary
+            component: Privary,
+            meta:{keepAlive: true}
         },
 
     ],

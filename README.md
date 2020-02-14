@@ -6,8 +6,6 @@
 
 有人反映课程表界面过去简单，这个版本整体更换了色彩和基础颜色，优化了几个页面。同时微信小程序版也即将上线，由于备案原因一直没有上线，月底前应该可以在小程序中搜索到"**方寸教务**"。
 
-![课程表](https://i.loli.net/2020/02/06/IF1XunsBmNlhWJi.png)
-
 #### 更新2020-01-14
 
 我以为我不会再更新了，没想到有一个Bug突如其来。由于为了调试方便我曾注释过一段代码，最后在`token`的过期机制下，课表的查看出现了问题，这次修复一下。
@@ -36,7 +34,7 @@
 
 ### 前端 -- 基于 `Vue.js+Webpack+mui+mint`开发
 
-![A4D99D2F2181F7270641C324268881E8.png](https://i.loli.net/2019/11/16/bpkZe4wsSrfvLEu.png)
+![home](https://daisylike.top/images/inchworld/home.png)
 
 如果用过《麻雀笔记》的同学一定有熟悉的感觉，我个人非常喜欢这一款笔记，然后就把页面给Copy了下来，虽然没有大佬画得好，但是重在实用嘛。
 
@@ -45,25 +43,31 @@
 >1. 重要日子
 >2. 班级课表
 >3. 义工时查询
->4. 电费查询 -- 有一个小彩蛋
+>4. 电费查询
 >5. 任务清单
 >6. 成绩查询
 >7. 图书馆藏
 >8. 体测成绩
+>9. 热点资讯
+>10. 文章收藏
+>11. 二维码生成
+>12. 主题更改
 
 一开始还准备加一个打卡数据的，但是目前学校换成了步道乐跑，就没有加入这个功能。
 
-![HiShoot_20191113_231214.png](https://i.loli.net/2019/11/13/kNYu1tTRrxdcGWH.png)
+![](https://daisylike.top/images/inchworld/score.png)
+
+![](https://daisylike.top/images/inchworld/four.png)
 
 功能比较简单，为了加大前端人员的工作量，于是让他加了一个TODO功能，怎么说呢，按需使用吧。课表界面实在是做的草率，版本v1.0.0可能真的只能显示当前周，抱歉！！！
 
 接下来就是一大波图片了
 
-![HiShoot_20191113_231848.png](https://i.loli.net/2019/11/13/Qok2NVKz1gCwG7i.png)
+![](https://daisylike.top/images/inchworld/rss_book.png)
 
-![HiShoot_20191113_230855.png](https://i.loli.net/2019/11/13/RwIfhJO8ozlBEdx.png)
+![](https://daisylike.top/images/inchworld/electron.png)
 
-![]( https://i.loli.net/2019/11/13/UrTBLV4sidoC2nJ.png )
+![](https://daisylike.top/images/inchworld/user.png)
 
 界面也许不尽人意，如果你有新的设计或者想法的话，我可以提供后端API，你可以根据自身的喜好设计满意的界面；如果你已经使用了一段时间，发现有时候有使用不顺畅的问题，这里我想说一声抱歉，个人开发者实在没有那么多钱去购买服务器；关于操作和使用，目前在APP的帮助界面和首页都有相关介绍...
 

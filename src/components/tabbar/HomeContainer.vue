@@ -1,93 +1,153 @@
 <template>
   <div class="home-container">
+    <!-- 导航栏 -->
+    <home-nav :name="'首页'"></home-nav>
+
     <!-- 卡片: 提示学生重要考试 -->
-    <div class="mui-card">
+    <div class="mui-card nav-translate">
       <div class="mui-card-content">
-        <div class="mui-card-content-inner strong-info">
-            距离考研还有
-            <strong>{{ day }}</strong>天
+        <div class="mui-card-content-inner strong-info" :style="{'background-color': themeColor}">
+          距离考研还有
+          <strong>{{ day }}</strong>天
         </div>
       </div>
     </div>
 
-    <!-- 卡片: 教务系统 -->
-    <div class="mui-card">
-      <div class="mui-card-header">教务系统</div>
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <ul class="mui-table-view mui-grid-view mui-grid-9">
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-              <router-link to="/home/syllabus">
-                <span class="mui-icon mui-icon-extra mui-icon-extra-regist"></span>
-                <div class="mui-media-body">课&nbsp;表</div>
-              </router-link>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-              <router-link to="/home/voluntary">
-                <span class="mui-icon mui-icon-checkmarkempty"></span>
-                <div class="mui-media-body">义工时</div>
-              </router-link>
-            </li>
-            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-              <router-link to="/home/electron">
-                <span class="mui-icon mui-icon-extra mui-icon-extra-classroom"></span>
-                <div class="mui-media-body">电&nbsp;费</div>
-              </router-link>
-            </li>
-          </ul>
+    <div style="margin-top: 90px;">
+      <!-- 卡片: 教务系统 -->
+      <div class="mui-card">
+        <div class="mui-card-header">
+          <span>教务系统</span>
+          <div class="nav-weather">
+            <img :src="weather.icon" alt="weather" />
+            <span style="font-size:20px">{{weather.temperature}} ℃</span>
+          </div>
         </div>
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+          <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" v-for="item in systemList" :key="item.url">
+            <router-link :to="item.url">
+              <span class="mui-icon iconfont" :class="item.icon"></span>
+              <div class="mui-media-body">{{item.name}}</div>
+            </router-link>
+          </li>
+        </ul>
       </div>
-    </div>
 
-    <!-- 卡片: 提示 -->
-    <div class="mui-card">
-      <div class="mui-card-header mui-card-header-bgc">很高兴见到你!</div>
-      <div class="mui-card-content">
+      <!-- 模态框 -->
+      <mt-popup class="popup" v-model="tipShowFlag" popup-transition="popup-fade">
+        <homeTip></homeTip>
+      </mt-popup>
+
+      <!-- 卡片: 提示 -->
+      <div
+        class="mui-card css-transform"
+        @touchstart="longTimeTouch()"
+        @touchend="emptyTime()"
+        v-if="tipFlag"
+        @click.prevent="tipShowFlag = !tipShowFlag"
+      >
         <div class="mui-card-content-inner">
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;感谢你下载使用《方寸》</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;目前小程序已经上线，<strong>微信小程序搜索"方寸教务"</strong></p>
+          <p>&nbsp;&nbsp;&nbsp; 感谢你下载使用《方寸》</p>
           <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;这是一个聚合我们学校各个信息查询为一体的工具APP，也许你和我有一样的困扰，
-            就是一旦要查看自己课表、义工时和成绩时，就要在各个公众号找链接查询，一套功夫下来，甚至自己都忘了要干什么。
+            &nbsp;&nbsp;&nbsp;&nbsp;目前小程序已经上线，微信小程序搜索"方寸教务"
+            <br />&nbsp;&nbsp;&nbsp;&nbsp;长按删除这段文字，将不再出现。
           </p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;为了方便查询，我在业余开发了这一款工具，初衷就为了解放自己的双手，同时也是为了简化教务系统繁琐的操作。</p>
-          <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;可能是个人能力的原因，你使用时可能感到并不流畅，偶尔还会蹦出几个bug，界面也许不能让你满意，在这里我替UI设计师和开发者向你道歉，
-            个人开发者实在是没钱换服务器，但是我会尽最大的努力。
-          </p>
-          <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;由于不同系统之间密码可能不同，因此当你在查询体测成绩的时候，需输入体育系统的密码；当你查询自己寝室电费的时候，第一次需要手动输入密码.
-          </p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;你不用担心信息泄露问题，目前软件开源在github上，如果你在使用过程中出现了一些问题，可以向我提issue，感激不尽。</p>
+          <p
+            style="font-weight: small; font-size: 10px;"
+          >&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;提示&nbsp;&nbsp;创建于{{ todayTime }}</p>
         </div>
       </div>
-      <div class="mui-card-footer right-info">——《方寸》</div>
+
+      <!-- 每日一言 -->
+      <div class="mui-card" :style="{'background-color': randomColor()}">
+        <div class="mui-card-header">每日一言</div>
+        <div class="mui-card-content one-content">
+          <img :src="one.img" alt="one" />
+          <span>{{one.text}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from "mint-ui";
+import { Toast, MessageBox, Popup } from "mint-ui";
+import homeTip from "../subcomponents/HomeTip.vue";
+import homeNav from "../subcomponents/NavTabar.vue";
+import {
+  todayDate,
+  RandomColor,
+  checkImgExists,
+  longTimeTouch
+} from "../../common/utils.js";
 
 export default {
   data() {
     return {
       flag: false,
       day: "",
+      tipFlag: true,
+      tipShowFlag: false,
+      systemList: [
+        {
+          "url": "/syllbus",
+          "icon": "icon-kebiaoxinxi",
+          "name": "课 表"
+        },{
+          "url": "/home/voluntary",
+          "icon": "icon-wj-zyzdj",
+          "name": "义工时"
+        },{
+          "url": "/home/electron",
+          "icon": "icon-dianfeimingan",
+          "name": "电 费"
+        },
+      ],
+      weather: {},
+      one: {},
+      todayTime: "",
+      themeColor: "rgba(83, 30, 35, 0.8)"
     };
   },
   created() {
-    this.getUserInfo()
-    this.awayLast()
+    const color = localStorage.getItem("themeColor");
+    if (color != undefined) {
+      this.themeColor = color;
+    }
+    this.getTodayInfo();
+    this.todayTime = todayDate();
+    const tip = localStorage.getItem("tipFlag");
+    if (tip != undefined) {
+      this.tipFlag = tip;
+    }
+    this.getUserInfo();
+    this.awayLast();
   },
   methods: {
+    randomColor() {
+      return RandomColor();
+    },
+    getTodayInfo() {
+      this.$http
+        .get("api/today")
+        .then(res => {
+          if (res.body.status === 0) {
+            this.weather = res.body.message.weather;
+            this.one = res.body.message.one;
+          }
+        })
+        .catch(err => {});
+    },
     getUserInfo() {
       const id = this.$store.state.userInfo.id;
       this.$http
         .get("api/userinfo/" + id)
         .then(res => {
           if (res.body.status === 0) {
-            const user = JSON.parse(res.body.message);
+            const key = this.$store.getters.key;
+            const user = JSON.parse(
+              JSON.parse(this.$aes.decrypt(res.body.message, key))
+            );
             this.$store.commit("addUserInfo", user);
           } else {
             Toast("前方通道拥挤");
@@ -97,67 +157,49 @@ export default {
           Toast("前方通道拥挤");
         });
     },
+    // 距离考研时间
     awayLast() {
-      const now = new Date()
-      const dayYear = now.getFullYear()
-      let ky = new Date(dayYear+'-12-21')
+      const now = new Date();
+      const dayYear = now.getFullYear();
+      let ky = new Date(dayYear + "-12-21");
       if (ky < now) {
-        ky = new Date((dayYear + 1)+'-12-21')
+        ky = new Date(dayYear + 1 + "-12-21");
       }
       this.day = Math.floor((ky - Date.parse(now)) / (1000 * 60 * 60 * 24)) + 1;
+    },
+    // 长按事件
+    longTimeTouch(e) {
+      return longTimeTouch(
+        e,
+        function() {
+          //执行的代码块
+          MessageBox.confirm("", {
+            title: "提示",
+            message: "删除过后将不会再出现,确认删除?",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消"
+          })
+            .then(action => {
+              if (action == "confirm") {
+                this.tipFlag = false;
+                localStorage.setItem("tipFlag", false);
+              }
+            })
+            .catch(error => {});
+        }.bind(this)
+      );
+    },
+    // 长按结束清空定时器
+    emptyTime() {
+      clearTimeout(this.Loop); //清空定时器，防止重复注册定时器
     }
+  },
+  components: {
+    homeTip,
+    homeNav
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.v-enter {
-  opacity: 0;
-  transform: translateY(100%);
-}
-
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
-  position: absolute;
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: all 1s ease;
-}
-.home-container {
-  .mui-card {
-    border-radius: 10px;
-     box-shadow: 0 3px 10px #888888;
-    .mui-card-header-bgc {
-      background-color: #ccc;
-      color: white;
-    }
-  }
-  .input-con {
-    background-color: gray;
-  }
-  .mui-icon {
-    font-size: 10px;
-  }
-  a {
-    text-decoration: none;
-  }
-  .strong-info {
-    // background-color: rgb(80, 30, 35);
-    background-color: rgba(83, 30, 35, 0.7);
-    color: white;
-    font-size: 17px;
-    text-align: center;
-    strong {
-      font-size: 25px;
-      margin: 10px 5px;
-    }
-  }
-  .right-info {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-}
 </style>

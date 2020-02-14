@@ -1,89 +1,143 @@
 <template>
   <div class="book-container">
-      <bookSearch @getText="getBookList" :info="'book'" :type="'text'"></bookSearch>
-
-      <bookInfo :info="'请输入要查询的图书名,例如<strong>人月神话</strong>'" v-show="!flag"></bookInfo>
-
-      <div class="mui-card" v-show="flag" v-for="(item, index) in bookList" :key="index">
-      <div class="mui-card-header">{{ item.name }}</div>
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <table class="table table-striped">
-            <tr>
-              <td>作者</td>
-              <td>{{ item.author | dataFormat}}</td>
-            </tr>
-            <tr>
-              <td>ISBN</td>
-              <td>{{ item.ISBN | dataFormat}}</td>
-            </tr>
-            <tr>
-              <td>索书号</td>
-              <td>{{ item.callNum | dataFormat}}</td>
-            </tr>
-            <tr>
-              <td>出版社</td>
-              <td>{{ item.publish | dataFormat}}</td>
-            </tr>
-            <tr>
-              <td>出版时间</td>
-              <td>{{ item.time | dataFormat}}</td>
-            </tr>
-          </table>
+    <!-- nav -->
+    <header class="absolute-nav">
+      <div class="home-nav">
+        <div class="nav-left">
+          <span class="mui-icon iconfont icon-zuojiantou" @click.prevent="goback"></span>
+        </div>
+        <div class="nav-right">
+          <div class="search bar8">
+            <form>
+              <input type="text" v-model="bookNm" @keyup.enter="getBookList()" placeholder="图书查询" />
+              <button type="button">
+                <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
+    </header>
+
+    <div class="list-commend nav-translate">
+      <h4>推荐阅读</h4>
+      <li class="li-commend" v-for="item in commendBook" :key="item.image">
+        <img :src="item.image" />
+        <span>{{item.name}}</span>
+      </li>
+      <li
+        class="li-commend"
+        v-for="(item, index) in bookList"
+        :key="index"
+        @click.prevent="getBookDetail(item)"
+      >
+        <div class="search-book" :style="{'background-image': randomColor()}">点击查看详情</div>
+        <span>{{item.name}}</span>
+      </li>
     </div>
+
+    <mt-popup class="popup" v-model="popupVisible" position="bottom" popup-transition="popup-fade">
+      <div class="mui-card-header">{{ book.name }}</div>
+      <div class="mui-card-content-inner">
+        <table class="table table-striped">
+          <tr>
+            <td>作者</td>
+            <td>{{ book.author| dataFormat }}</td>
+          </tr>
+          <tr>
+            <td>ISBN</td>
+            <td>{{book.ISBN | dataFormat }}</td>
+          </tr>
+          <tr>
+            <td>索书号</td>
+            <td>{{ book.callNum | dataFormat}}</td>
+          </tr>
+          <tr>
+            <td>出版社</td>
+            <td>{{ book.publish | dataFormat }}</td>
+          </tr>
+          <tr>
+            <td>出版时间</td>
+            <td>{{ book.time | dataFormat }}</td>
+          </tr>
+        </table>
+      </div>
+    </mt-popup>
+
+    <div style="margin-top:100px; height: 60px; clear:both;"></div>
   </div>
 </template>
 
 <script>
-import bookSearch from "../subcomponents/HandleSearch.vue";
-import bookInfo from "../subcomponents/Info.vue";
-import { Toast } from "mint-ui";
+import { RandomColor } from "../../common/utils.js";
+import { Toast, Popup } from "mint-ui";
 
 export default {
   data() {
     return {
       bookList: [],
+      commendBook: [
+        {
+          name: "追风筝的人",
+          image: "https://img3.doubanio.com/view/subject/l/public/s1727290.jpg"
+        },
+        {
+          name: "解忧杂货店",
+          image: "https://img3.doubanio.com/view/subject/l/public/s27264181.jpg"
+        },
+        {
+          name: "小王子",
+          image: "https://img3.doubanio.com/view/subject/l/public/s1103152.jpg"
+        },
+        {
+          name: "白夜行",
+          image: "https://img3.doubanio.com/view/subject/l/public/s4610502.jpg"
+        },
+        {
+          name: "活着",
+          image: "https://img3.doubanio.com/view/subject/l/public/s29053580.jpg"
+        }
+      ],
       indexPage: 0,
-      flag: false,
-      bookNm: ''
-    }
+      popupVisible: false,
+      bookNm: "",
+      book: {}
+    };
   },
   methods: {
-    getBookList(name) {
-      this.bookNm = name
+    goback() {
+      this.$router.go(-1);
+    },
+    getBookDetail(book) {
+      this.popupVisible = true;
+      this.book = book;
+    },
+    getBookList() {
       const formData = {
-        bookName: name,
+        bookName: this.bookNm,
         num: this.indexPage
-      }
-      this.$http.post('api/getbook', formData).then(res => {
-        if (res.body.status === 0) {
-            this.bookList = res.body.message
-            this.flag = true
+      };
+      this.$http
+        .post("api/getbook", formData)
+        .then(res => {
+          if (res.body.status === 0) {
+            this.bookList = res.body.message;
           } else {
-            Toast('服务器繁忙,请稍后查询')
+            Toast("服务器繁忙,请稍后查询");
           }
-      }).catch(err => {
-        Toast('服务器繁忙,请稍后查询')
-      })
+        })
+        .catch(err => {
+          Toast("服务器繁忙,请稍后查询");
+        });
+    },
+    randomColor() {
+      let color =  RandomColor()
+      return `linear-gradient(${color}, #ffffff)`;
     }
   },
-  components: {
-    bookSearch,
-    bookInfo
-  }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.book-container {
-  .mui-card {
-    border-radius: 10px;
-    .mui-card-header {
-      background-color: #ccc;
-      color: white;
-    }
-  }
-}
+
 </style>

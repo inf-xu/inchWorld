@@ -1,51 +1,85 @@
 <template>
   <div class="app-container">
-    <transition>
-      <router-view></router-view>
-    </transition>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
 
-    <nav class="mui-bar mui-bar-tab mui-active" v-show="flag">
+    <nav class="mui-bar mui-bar-tab mui-active" v-show="isOriginHei">
       <router-link class="mui-tab-item-llb" to="/home">
         <span
-          class="mui-icon mui-icon-home"
-          :class="{'path-active': (path === '/home' ? true : false)}"
+          class="mui-icon iconfont icon-yidiandiantubiao04"
+          :class="{'mui-active': (path === '/home' ? true : false)}"
         ></span>
+        <span class="mui-tab-label">首页</span>
       </router-link>
-      <router-link class="mui-tab-item-llb" to="/todo">
+      <router-link class="mui-tab-item-llb" to="/rss">
         <span
-          class="mui-icon mui-icon-extra mui-icon-extra-topic"
-          :class="{'path-active': (path === '/todo' ? true : false)}"
+          class="mui-icon iconfont icon-dongtai01"
+          :class="{'mui-active': (path === '/rss' ? true : false)}"
         ></span>
+        <span class="mui-tab-label">订阅</span>
+      </router-link>
+      <router-link class="mui-tab-item-llb" to="/syllbus">
+        <span
+          class="mui-icon iconfont icon-paikebiao"
+          :class="{'mui-active': (path === '/syllbus' ? true : false)}"
+        ></span>
+        <span class="mui-tab-label">课表</span>
       </router-link>
       <router-link class="mui-tab-item-llb" to="/user">
         <span
-          class="mui-icon mui-icon-person-filled"
-          :class="{'path-active': (path === '/user' ? true : false)}"
+          class="mui-icon iconfont icon-touxiang"
+          :class="{'mui-active': (path === '/user' ? true : false)}"
         ></span>
+        <span class="mui-tab-label">我的</span>
       </router-link>
     </nav>
   </div>
 </template>
 
 <script>
+import mui from "./lib/mui/js/mui.min.js";
+
 export default {
   data() {
     return {
-      flag: false,
-      path: this.$route.path
+      path: this.$route.path,
+      isOriginHei: true,
+      screenHeight: document.documentElement.clientHeight, //此处也可能是其他获取方法
+      originHeight: document.documentElement.clientHeight
+    };
+  },
+  mounted() {
+    let self = this;
+    window.onresize = function() {
+      return (function() {
+        self.screenHeight = document.documentElement.clientHeight;
+      })();
     };
   },
   created() {
-    this.flag = this.$route.path === "/login" ? false : true;
+    let path = this.$route.path;
+    if (path === "/login" || path === "/set") {
+      this.isOriginHei = false;
+    }
   },
   watch: {
     "$route.path": function(newVal) {
       // console.log(newVal);
       this.path = newVal;
-      if (newVal === "/login") {
-        this.flag = false;
+      if (newVal === "/login" || newVal === "/set") {
+        this.isOriginHei = false;
       } else {
-        this.flag = true;
+        this.isOriginHei = true;
+      }
+    },
+    screenHeight(val) {
+      if (this.originHeight > val + 100) {
+        //加100为了兼容华为的返回键
+        this.isOriginHei = false;
+      } else if (this.$route.path !== "/login") {
+        this.isOriginHei = true;
       }
     }
   }
@@ -53,33 +87,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
 .app-container {
   padding-bottom: 50px;
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  // overflow-x: auto;
+  // overflow-y: scroll;
+  // -webkit-overflow-scrolling: touch;
+
+  a {
+    text-decoration: none;
+  }
+
+  .router-link-active {
+    text-decoration: none;
+  }
 }
 
-.path-active {
-  color: #1aad19;
-}
-
-.v-enter {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
-  position: absolute;
-}
-
-.v-enter-active,
-.v-leave-active {
-  transition: all 0.6s ease;
+.mui-bar {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
 }
 
 .mui-bar-tab .mui-tab-item-llb .mui-active {
-  color: #007aff;
+  // color: #007aff;
+  // color: #1aad19;
+  color: black;
 }
 
 .mui-bar-tab .mui-tab-item-llb {
@@ -91,7 +127,8 @@ export default {
   vertical-align: middle;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #929292;
+  color: gray;
+  // color: #929292;
 }
 
 .mui-bar-tab .mui-tab-item-llb .mui-icon {
@@ -103,9 +140,10 @@ export default {
 }
 
 .mui-bar-tab .mui-tab-item-llb .mui-icon ~ .mui-tab-label {
-  font-size: 11px;
+  font-size: 10px;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: none;
 }
 </style>
