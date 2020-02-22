@@ -127,16 +127,10 @@ const state = {
     rssList: rssList
 }
 const mutations = {
-    setKey(state, token) {
-        const key = localStorage.getItem("key")
-        if (key != undefined) {
-            return;
-        }
-        localStorage.setItem("key", token);
-    },
     loginOut(state) {
         sessionStorage.clear()
         localStorage.clear()
+        localStorage.clear('pubKey')
         state.userInfo = {}
     },
     addUserInfo(state, info) {
@@ -186,7 +180,7 @@ const mutations = {
 }
 const getters = {
     key(state) {
-        return localStorage.getItem("key")
+        return 'kdaisyershbuasxr'
     },
     collectList(state) {
         return localStorage.getItem("collection")

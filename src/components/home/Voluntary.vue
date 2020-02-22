@@ -43,7 +43,7 @@
       <div class="header-detail">
         <img src="../../assets/about-daisy.jpg" />
         <div class="user-detail">
-          <span>徐瑞的义工记录</span>
+          <span>你的义工记录</span>
           <p>你为这个世界添上了你的颜色</p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="setting-container">
     <!-- header -->
-    <setNav :name="'设置'" :info="'为主题设置你喜欢的颜色'"></setNav>
+    <setNav :name="'设置'" :info="'为主题设置你喜欢的颜色,重启后有效'"></setNav>
 
     <div class="nav-translate" style="height: 90px"></div>
 

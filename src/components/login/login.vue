@@ -43,7 +43,6 @@
 <script>
 import { Toast } from "mint-ui";
 import { JSEncrypt } from "jsencrypt";
-
 export default {
   data() {
     return {
@@ -62,7 +61,7 @@ export default {
       Toast("已清除缓存,请重新登陆");
     },
     init() {
-      if (localStorage.getItem("userInfo")) {
+      if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))["id"]) {
         const user = {
           name: this.$store.state.userInfo.id,
           password: this.$store.state.userInfo.password
@@ -111,7 +110,7 @@ export default {
           if (res.body.status === 0) {
             Toast("success");
             this.$store.commit("addUserId", user);
-            this.$store.commit("setKey", res.body.message);
+            this.getUserInfo(user.name)
             this.$router.push("/home");
           } else {
             Toast("用户名或密码错误");
@@ -120,7 +119,25 @@ export default {
         .catch(err => {
           Toast("用户名或密码错误");
         });
-    }
+    },
+    getUserInfo(id) {
+      this.$http
+        .get("api/userinfo/" + id)
+        .then(res => {
+          if (res.body.status === 0) {
+            const key = this.$store.getters.key;
+            const user = JSON.parse(
+              JSON.parse(this.$aes.decrypt(res.body.message, key))
+            );
+            this.$store.commit("addUserInfo", user);
+          } else {
+            Toast("前方通道拥挤");
+          }
+        })
+        .catch(err => {
+          Toast("前方通道拥挤");
+        });
+    },
   }
 };
 </script>

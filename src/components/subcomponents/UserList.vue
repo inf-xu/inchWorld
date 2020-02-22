@@ -10,7 +10,7 @@
     <!-- 小程序  博客 自定义  夜间模式 -->
     <div class="mui-card">
       <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
+        <li class="mui-table-view-cell" @click.prevent="WXShowFlag=true">
           <span class="icon iconfont icon-xiaochengxu"></span>
           <span class="wei-item">小程序</span>
         </li>
@@ -66,6 +66,10 @@
         </li>
       </ul>
     </div>
+
+    <mt-popup class="popup" v-model="WXShowFlag" popup-transition="popup-fade">
+      <img src="../../assets/wx.jpg" />
+    </mt-popup>
   </div>
 </template>
 
@@ -91,7 +95,8 @@ export default {
           icon: "icon-tushuguan",
           name: "图书"
         }
-      ]
+      ],
+      WXShowFlag: false
     };
   },
   methods: {
@@ -122,4 +127,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.popup {
+  width: 80%;
+  height: 45%;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>

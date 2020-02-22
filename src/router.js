@@ -23,17 +23,17 @@ const router = new VueRouter({
     routes: [ 
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/home'
         },
         {
             path: '/login',
             component: Login,
-            meta:{keepAlive:false}
+            meta:{requireAuth:false,keepAlive:false}
         },
         {
             path: '/home',
             component: HomeContainer,
-            meta:{requireAuth:true, keepAlive: true}
+            meta:{requireAuth:false, keepAlive: true}
         },
         {
             path: '/syllbus',
@@ -49,17 +49,17 @@ const router = new VueRouter({
         {
             path: '/rss',
             component: RssContainer,
-            meta:{requireAuth:true, keepAlive: false}
+            meta:{requireAuth:false, keepAlive: false}
         },
         {
             path: '/rsslist/:id',
             component: RssList,
-            meta:{keepAlive:false}
+            meta:{requireAuth:false,keepAlive:false}
         },
         {
             path: '/rssdetail/:name/:id',
             component: RssDetail,
-            meta:{keepAlive:false}
+            meta:{requireAuth:false,keepAlive:false}
         },
         { 
             path: '/user',
@@ -69,17 +69,17 @@ const router = new VueRouter({
         {
             path: '/collection',
             component: Collection,
-            meta:{keepAlive:false}
+            meta:{requireAuth:false,keepAlive:false}
         },
         {
             path: '/custom',
             component: CustomRss,
-            meta:{keepAlive:false}
+            meta:{requireAuth:false,keepAlive:false}
         },
         {
             path: '/set',
             component: Setting,
-            meta:{keepAlive:true}
+            meta:{requireAuth:false,keepAlive:true}
         },
         {
             path: '/home/voluntary',
@@ -89,32 +89,32 @@ const router = new VueRouter({
         {
             path: '/home/electron',
             component: Electron,
-            meta:{keepAlive:true}
+            meta:{requireAuth:false,keepAlive:true}
         },
         {
             path: '/user/physical',
             component: Physical,
-            meta:{requireAuth:true, keepAlive: true}
+            meta:{requireAuth:true, keepAlive: false}
         },
         {
             path: '/user/score',
             component: Score,
-            meta:{requireAuth:true, keepAlive: true}
+            meta:{requireAuth:true, keepAlive: false}
         },
         {
             path: '/user/book',
             component: Book,
-            meta:{keepAlive:true}
+            meta:{requireAuth:false,keepAlive:true}
         },
         {
             path: '/about',
             component: About,
-            meta:{keepAlive: true}
+            meta:{requireAuth:false,keepAlive: true}
         },
         {
             path: '/privary',
             component: Privary,
-            meta:{keepAlive: true}
+            meta:{requireAuth:false,keepAlive: true}
         },
 
     ],

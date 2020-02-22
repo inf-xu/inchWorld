@@ -123,7 +123,6 @@ export default {
       this.bar.xAxis.data = totalCredit;
       this.bar.series[0].data = totalCredit;
     },
-
     showPopup(index) {
       this.popupVisible = true;
       this.scoreList = this.totalScoreList[index];
@@ -132,39 +131,20 @@ export default {
       const id = this.$store.state.userInfo.id;
       const data = {
         id: id,
-        updateFlag: this.isUpdate()
       };
       this.$http
         .post("api/system", data)
         .then(res => {
           if (res.body.status === 0) {
             const key = this.$store.getters.key;
-            // console.log(this.$aes.decrypt(res.body.message, key));
-            
             this.totalScoreList = JSON.parse(this.$aes.decrypt(res.body.message, key));
             // this.totalScoreList = JSON.parse(res.body.message, key)
-            
             this.handleScore(this.totalScoreList);
           }
         })
         .catch(err => {
           Toast("查成绩的同学太多了,请稍后再试");
         });
-    },
-    isUpdate() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const lowTime1 = new Date(year + "-12-10");
-      const highTime1 = new Date(year + "-12-29");
-      const lowTime2 = new Date(year + "-8-10");
-      const highTime2 = new Date(year + "-8-20");
-
-      if (today > lowTime1 && today < highTime1) {
-        return true;
-      } else if (today > lowTime2 && today < highTime2) {
-        return true;
-      }
-      return false;
     }
   },
   components: {

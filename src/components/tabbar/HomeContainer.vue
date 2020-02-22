@@ -67,6 +67,8 @@
         </div>
       </div>
     </div>
+
+    <div style="margin-top: 20px; height: 50px"></div>
   </div>
 </template>
 
@@ -120,7 +122,7 @@ export default {
     if (tip != undefined) {
       this.tipFlag = tip;
     }
-    this.getUserInfo();
+    // this.getUserInfo();
     this.awayLast();
   },
   methods: {
@@ -137,25 +139,6 @@ export default {
           }
         })
         .catch(err => {});
-    },
-    getUserInfo() {
-      const id = this.$store.state.userInfo.id;
-      this.$http
-        .get("api/userinfo/" + id)
-        .then(res => {
-          if (res.body.status === 0) {
-            const key = this.$store.getters.key;
-            const user = JSON.parse(
-              JSON.parse(this.$aes.decrypt(res.body.message, key))
-            );
-            this.$store.commit("addUserInfo", user);
-          } else {
-            Toast("前方通道拥挤");
-          }
-        })
-        .catch(err => {
-          Toast("前方通道拥挤");
-        });
     },
     // 距离考研时间
     awayLast() {

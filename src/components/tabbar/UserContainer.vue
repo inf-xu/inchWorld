@@ -72,7 +72,7 @@ export default {
     return {
       user: {},
       QRShowFlag: false,
-      imageShowFlag: false
+      imageShowFlag: false,
     };
   },
   created() {
@@ -93,7 +93,7 @@ export default {
       let qrcode = new QRCode("qrcode", {
         width: 200,
         height: 200,
-        text: "http://192.168.43.178:3000/qrcode/" + xh
+        text: "https://www.kdaisyers.com/qrcode/" + xh
       });
       var mycanvas1 = document.getElementsByTagName("canvas")[0]; //将转换后的img标签插入到html中
       var img = this.convertCanvasToImage(mycanvas1);
@@ -114,7 +114,7 @@ export default {
           if (res.body.status === 0) {
             Toast("退出成功");
             this.$store.commit("loginOut");
-            this.$router.push("/login");
+            this.$router.push("/home");
           }
         })
         .catch(err => {

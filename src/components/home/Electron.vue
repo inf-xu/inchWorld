@@ -7,9 +7,10 @@
           <span class="mui-icon iconfont icon-zuojiantou" @click.prevent="goback"></span>
         </div>
         <div class="nav-right">
-          <div class="search bar8" @click.prevent="popupVisible=false">
+          <div class="search bar8">
             <form>
               <input type="text" v-model="name" @keyup.enter="getElectricbill()" placeholder="电费查询" />
+              <input v-show="false"/>
               <button type="button">
                 <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
               </button>
@@ -24,18 +25,27 @@
       </div>
     </header>
 
-    <div class="nav-translate" style="height: 80px;"></div>
+    <div class="nav-translate" style="height: 90px;"></div>
 
     <mt-popup
       class="popup"
       v-model="popupVisible"
       position="bottom"
       popup-transition="popup-fade"
-      :style="{'height': popHeight}"
+      style="height: 15%"
     >
       <h4>提示</h4>
       <p>请输入房间名，格式为"15-203"，小横杠为英文横杠噢.</p>
-      <div class="mui-card" v-show="flag">
+    </mt-popup>
+
+    <mt-popup
+      class="popup"
+      v-model="popupDetail"
+      position="bottom"
+      popup-transition="popup-fade"
+      style="height: 45%"
+    >
+      <div class="mui-card">
         <div class="mui-card-header">{{name}}的电费情况</div>
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
@@ -88,7 +98,7 @@ export default {
       name: "",
       screenHeight: document.documentElement.clientHeight + "px", //此处也可能是其他获取方法
       popupVisible: true,
-      popHeight: "20%",
+      popupDetail: false,
       window: {
         position: center,
         content: "看,这就是你的寝室!"
@@ -97,6 +107,7 @@ export default {
   },
   created() {
     const rome = this.$store.state.userInfo.rome;
+    this.popupVisible = false
     if (rome != undefined) {
       this.name = rome;
       this.getElectricbill();
@@ -114,10 +125,8 @@ export default {
             const key = this.$store.getters.key;
             const data = this.$aes.decrypt(res.body.message, key);
             this.electricbill = JSON.parse(data);
-            this.flag = true; // 显示数据
-            this.popHeight = "50%"; // 设置模态框高度
-            this.popupVisible = true; // 显示模态框
-            // this.$store.commit("addUserRome", this.name); // 存储用户房间
+            this.popupDetail = true; // 显示模态框
+            this.$store.commit("addUserRome", this.name); // 存储用户房间
           } else {
             Toast("电费获取失败");
             this.name = "";

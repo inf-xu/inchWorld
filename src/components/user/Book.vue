@@ -10,6 +10,7 @@
           <div class="search bar8">
             <form>
               <input type="text" v-model="bookNm" @keyup.enter="getBookList()" placeholder="图书查询" />
+              <input v-show="false"/>
               <button type="button">
                 <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
               </button>
@@ -65,6 +66,8 @@
     </mt-popup>
 
     <div style="margin-top:100px; height: 60px; clear:both;"></div>
+    <div style="margin-top: 20px; height: 30px"></div>
+
   </div>
 </template>
 

@@ -48,18 +48,9 @@ Vue.filter('dataFormat', function (dataStr) {
 
 import router from './router.js'
 
-const vm = new Vue({
-    el: '#app',
-    render: c => c(app),
-    router,
-    store
-})
-
-/* 
-?????????? -- ????
 router.beforeEach((to, from, next) => {
-    if (to.meta.requireAuth) { 
-        if (sessionStorage.getItem("token")) { 
+    if (to.meta.requireAuth) {
+        if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))["id"]) { 
             next();
         } else {
             if (to.path === '/login') {
@@ -82,4 +73,12 @@ router.beforeEach((to, from, next) => {
             next();
         }
     }
-}); */
+});
+
+
+const vm = new Vue({
+    el: '#app',
+    render: c => c(app),
+    router,
+    store
+})

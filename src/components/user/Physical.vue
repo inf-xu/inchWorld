@@ -15,6 +15,7 @@
                 @keyup.enter="getPhysicalList()"
                 placeholder="体测密码"
               />
+              <input v-show="false"/>
               <button type="button">
                 <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
               </button>
@@ -40,7 +41,7 @@
         </div>
         <!-- <hr> -->
         <div class="sport-info">
-          <span>在{{ item.year }}-{{ item.term }}学期中,你的体测成绩{{ item.grade }},得分{{ item.score }}.</span>
+          <span>在{{ item.year }}年度,第{{ item.term }}学期中,你的体测成绩{{ item.grade }},得分{{ item.score }}.</span>
           <span>点击头像或者图片显示对应学年度的体测详情。</span>
           <img
             src="https://s2.ax1x.com/2020/01/08/lgLUBD.jpg"
@@ -127,7 +128,7 @@ export default {
     getPhysicalList() {
       const user = {
         name: this.$store.state.userInfo.id,
-        password: pwd
+        password: this.ipassword
       };
 
       this.$http
@@ -158,7 +159,7 @@ export default {
           if (res.body.status === 0) {
             const key = this.$store.getters.key;
             this.physicalDetail = JSON.parse(this.$aes.decrypt(res.body.message, key));
-            this.yearTerm = year + "-" + term;
+            this.yearTerm = year + "年度" + "第" + term + "学期";
             this.popupDetail = true;
           } else {
             Toast(res.body.message);

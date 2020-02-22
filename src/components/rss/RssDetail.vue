@@ -26,15 +26,15 @@
       <div>{{content.title}}</div>
       <span>{{content.author}}</span>
       <small>{{calculateDate(content.data)}}</small>
-      <hr />
     </div>
 
-    <div style="margin: 70px 5px 15px;">
+    <div style="margin: 100px 5px 30px;">
       <hr />
     </div>
 
     <!-- content -->
     <div class="info" v-html="content.description"></div>
+    <div style="margin-top: 50px; height: 50px"></div>
   </div>
 </template>
 

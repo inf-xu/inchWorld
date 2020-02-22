@@ -80,7 +80,7 @@
 
     .header {
         width: 100%;
-        height: 30%;
+        height: 18%;
 
         .cal {
             display: flex;
@@ -101,10 +101,13 @@
         }
     }
 
-    .syllabus-content {
-        margin: 20px 15px 0 15px;
-        height: 70%;
+    .v-touch {
+        touch-action: pan-y!important;
+    }
 
+    .syllabus-content {
+        margin: 20% 15px 0 15px;
+        height: 100%;
         .syll-item {
             .title {
                 font-size: 18px;
@@ -125,7 +128,6 @@
                 margin-top: 10px;
                 display: flex;
                 justify-content: space-around;
-
                 .l-left-syll-item {
                     margin: 0 0 0 40px;
 
@@ -138,10 +140,11 @@
                 }
 
                 .r-right-syll-item {
+                    width: 100%;
                     .info-syll {
-                        width: 250px;
-                        height: 80px;
-                        margin-bottom: 10px;
+                        width: 80%;
+                        height: 45%;
+                        margin: 0 0 5% 5%;
                         // border: 1px solid #FF8080;
                         border-radius: 7px;
 
@@ -179,6 +182,7 @@
         border-top-left-radius: 50px;
         border-top-right-radius: 50px;
         padding: 25px;
+        overflow-y: scroll;
 
         .voluntary-content {
             width: 100%;

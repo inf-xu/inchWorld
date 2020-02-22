@@ -50,9 +50,8 @@
         ></span>
         <span v-show="topStatus === 'loading'">finish!</span>
       </div>
+      <div style="margin-top: 20px; height: 50px"></div>
     </mt-loadmore>
-
-    <div style="height: 120px;"></div>
   </div>
 </template>
 
@@ -118,23 +117,23 @@ export default {
     },
     srrName() {
       let srrList = {
-        "inchworld": "方寸",
-        "zhihu": "知乎",
-        "sspai": "少数派",
-        "microsoft": "微软亚洲",
-        "wiki": "维基百科",
-        "guokr": "果壳网",
-        "geekpark": "极客公园",
+        inchworld: "方寸",
+        zhihu: "知乎",
+        sspai: "少数派",
+        microsoft: "微软亚洲",
+        wiki: "维基百科",
+        guokr: "果壳网",
+        geekpark: "极客公园",
         "36k": "36氪",
-        "appinn": "小众软件",
-        "qdaily": "好奇心日报",
-        "chinadaily": "China Daily",
-        "qq": "腾讯科技",
-        "dxy": "丁香园",
-        "gcores": "机核",
-        "photoworld": "摄影世界",
-        "qiubai": "糗事百科",
-        "zai": "宅"
+        appinn: "小众软件",
+        qdaily: "好奇心日报",
+        chinadaily: "China Daily",
+        qq: "腾讯科技",
+        dxy: "丁香园",
+        gcores: "机核",
+        photoworld: "摄影世界",
+        qiubai: "糗事百科",
+        zai: "宅"
       };
       this.name = srrList[this.id];
     }
@@ -143,5 +142,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
