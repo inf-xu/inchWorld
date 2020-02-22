@@ -39,7 +39,12 @@
       </div>
     </div>
 
-    <mt-popup class="vol-popup" v-model="popupVisible" position="bottom" popup-transition="popup-fade">
+    <mt-popup
+      class="vol-popup"
+      v-model="popupVisible"
+      position="bottom"
+      popup-transition="popup-fade"
+    >
       <div class="header-detail">
         <img src="../../assets/about-daisy.jpg" />
         <div class="user-detail">
@@ -92,7 +97,7 @@ export default {
     mui(".mui-scroll-wrapper").scroll({
       bounce: false, //滚动条是否有弹力默认是true
       indicators: true //是否显示滚动条,默认是true
-    })
+    });
   },
   methods: {
     // 不能滚动，只能重新加载一遍
@@ -103,13 +108,13 @@ export default {
       const user = {
         id: this.$store.state.userInfo.id
       };
-      this.$http
-        .post("api/voluntary", user)
+      this.$axios
+        .post("api/voluntary", this.$qs.stringify(user))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
-            const data = JSON.parse(this.$aes.decrypt(res.body.message, key));
-            if (data == null || data == '' || data == undefined) {
+            const data = JSON.parse(this.$aes.decrypt(res.data.message, key));
+            if (data == null || data == "" || data == undefined) {
               return Toast("你还没有做过义工哦");
             }
             this.handleMsg(data);
@@ -157,5 +162,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

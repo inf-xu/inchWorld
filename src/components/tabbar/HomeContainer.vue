@@ -130,12 +130,12 @@ export default {
       return RandomColor();
     },
     getTodayInfo() {
-      this.$http
+      this.$axios
         .get("api/today")
         .then(res => {
-          if (res.body.status === 0) {
-            this.weather = res.body.message.weather;
-            this.one = res.body.message.one;
+          if (res.data.status === 0) {
+            this.weather = res.data.message.weather;
+            this.one = res.data.message.one;
           }
         })
         .catch(err => {});

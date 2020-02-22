@@ -120,11 +120,11 @@ export default {
         bookName: this.bookNm,
         num: this.indexPage
       };
-      this.$http
-        .post("api/getbook", formData)
+      this.$axios
+        .post("api/getbook", this.$qs.stringify(formData))
         .then(res => {
-          if (res.body.status === 0) {
-            this.bookList = res.body.message;
+          if (res.data.status === 0) {
+            this.bookList = res.data.message;
           } else {
             Toast("服务器繁忙,请稍后查询");
           }

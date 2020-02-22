@@ -94,12 +94,12 @@ export default {
     },
     getSrrList() {
       Indicator.open();
-      this.$http
+      this.$axios
         .get("api/srr/" + this.id)
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             Indicator.close();
-            this.rssList = JSON.parse(res.body.message);
+            this.rssList = JSON.parse(res.data.message);
             let webName = this.name;
             this.rssList.forEach(item => {
               item.name = webName;

@@ -20,7 +20,12 @@
 
     <!-- <div style="height: 70px" class="nav-translate"></div> -->
 
-    <v-touch v-on:swipeleft="onSwipeLeft" class="v-touch" v-on:swiperight="onSwipeRight" v-on:swipeup="onSwipeRight">
+    <v-touch
+      v-on:swipeleft="onSwipeLeft"
+      class="v-touch"
+      v-on:swiperight="onSwipeRight"
+      v-on:swipeup="onSwipeRight"
+    >
       <div class="syllabus-content nav-translate">
         <div class="syll-item" v-for="(item, index) in touchSyllList" :key="index">
           <div class="title">{{handleTime(index)}}</div>
@@ -45,7 +50,7 @@
         </div>
       </div>
     </v-touch>
-      <div style="margin-top: 30%; height: 55px"></div>
+    <div style="margin-top: 30%; height: 55px"></div>
 
     <!-- content -->
   </div>
@@ -148,16 +153,16 @@ export default {
     },
     getSyllabusList() {
       const formData = {
-        id: this.$store.state.userInfo.id,
+        id: this.$store.state.userInfo.id
       };
       Indicator.open();
-      this.$http
-        .post("api/syllabusinfo", formData)
+      this.$axios
+        .post("api/syllabusinfo", this.$qs.stringify(formData))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
             const syllsbusList = JSON.parse(
-              this.$aes.decrypt(res.body.message, key)
+              this.$aes.decrypt(res.data.message, key)
             );
             const w = ["7", "0", "1", "2", "3", "4", "5", "6"];
             this.index = new Date().getDay() - 1;

@@ -132,13 +132,12 @@ export default {
       const data = {
         id: id,
       };
-      this.$http
-        .post("api/system", data)
+      this.$axios
+        .post("api/system", this.$qs.stringify(data))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
-            this.totalScoreList = JSON.parse(this.$aes.decrypt(res.body.message, key));
-            // this.totalScoreList = JSON.parse(res.body.message, key)
+            this.totalScoreList = JSON.parse(this.$aes.decrypt(res.data.message, key));
             this.handleScore(this.totalScoreList);
           }
         })

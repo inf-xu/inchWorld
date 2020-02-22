@@ -10,7 +10,7 @@
           <div class="search bar8">
             <form>
               <input type="text" v-model="name" @keyup.enter="getElectricbill()" placeholder="电费查询" />
-              <input v-show="false"/>
+              <input v-show="false" />
               <button type="button">
                 <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
               </button>
@@ -107,7 +107,7 @@ export default {
   },
   created() {
     const rome = this.$store.state.userInfo.rome;
-    this.popupVisible = false
+    this.popupVisible = false;
     if (rome != undefined) {
       this.name = rome;
       this.getElectricbill();
@@ -118,12 +118,12 @@ export default {
       this.$router.go(-1);
     },
     getElectricbill() {
-      this.$http
+      this.$axios
         .get("api/electricbill/" + this.name)
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
-            const data = this.$aes.decrypt(res.body.message, key);
+            const data = this.$aes.decrypt(res.data.message, key);
             this.electricbill = JSON.parse(data);
             this.popupDetail = true; // 显示模态框
             this.$store.commit("addUserRome", this.name); // 存储用户房间

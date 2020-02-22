@@ -76,11 +76,9 @@ export default {
     },
     getKey() {
       return new Promise((reslove, reject) => {
-        this.$http
-          .get("api/key")
-          .then(res => {
-            if (res.body.status === 0) {
-              reslove(res.body.publicDer);
+        this.$axios.get("api/key").then(res => {
+            if (res.data.status === 0) {
+              reslove(res.data.publicDer);
             }
             reject(0);
           })
@@ -104,10 +102,10 @@ export default {
       this.reqLogin(user);
     },
     reqLogin(user) {
-      this.$http
-        .post("api/loginin", user)
+      this.$axios
+        .post("api/loginin", this.$qs.stringify(user))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             Toast("success");
             this.$store.commit("addUserId", user);
             this.getUserInfo(user.name)
@@ -121,13 +119,13 @@ export default {
         });
     },
     getUserInfo(id) {
-      this.$http
+      this.$axios
         .get("api/userinfo/" + id)
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
             const user = JSON.parse(
-              JSON.parse(this.$aes.decrypt(res.body.message, key))
+              JSON.parse(this.$aes.decrypt(res.data.message, key))
             );
             this.$store.commit("addUserInfo", user);
           } else {

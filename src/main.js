@@ -20,10 +20,17 @@ Vue.use(VueTouch, {
 
 
 import app from './App.vue'
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
-Vue.http.options.root = 'http://192.168.43.178:3000/'
-Vue.http.options.emulateJSON = true
+//引入qs
+import qs from 'qs'
+import Axios from 'axios'
+Vue.prototype.$axios = Axios;
+Vue.prototype.$qs = qs
+
+//设置baseURL
+// Axios.defaults.baseURL = 'http://192.168.43.178:3000/'
+Axios.defaults.baseURL = 'https://www.kdaisyers.com/'
+//请求头
+Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; 
 
 // 全局引入 加密文件
 import aes from './common/aes.js'
@@ -37,9 +44,6 @@ import './lib/mui/css/mui.min.css'
 import './common/style.scss'
 import './common/pages.scss'
 import './lib/mui/css/icons-extra.css'
-
-import VuePreview from 'vue-preview'
-Vue.use(VuePreview)
 
 Vue.filter('dataFormat', function (dataStr) {
     return (dataStr + "").split('：')[1]

@@ -15,7 +15,7 @@
                 @keyup.enter="getPhysicalList()"
                 placeholder="体测密码"
               />
-              <input v-show="false"/>
+              <input v-show="false" />
               <button type="button">
                 <span class="mui-icon iconfont icon-sousuo" style="font-weight: bold"></span>
               </button>
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     goback() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     tip() {
       Toast({
@@ -131,20 +131,22 @@ export default {
         password: this.ipassword
       };
 
-      this.$http
-        .post("api/physical", user)
+      this.$axios
+        .post("api/physical", this.$qs.stringify(user))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
-            this.physicalList = JSON.parse(this.$aes.decrypt(res.body.message, key));
-            physicalList = res.body.message;
+            this.physicalList = JSON.parse(
+              this.$aes.decrypt(res.data.message, key)
+            );
+            physicalList = res.data.message;
             this.$store.commit("addUserPhysicall", this.ipassword);
           } else {
-            Toast(res.body.message);
+            Toast(res.data.message);
           }
         })
         .catch(err => {
-          Toast(res.body.message);
+          Toast(res.data.message);
         });
     },
     clickTerm(year, term) {
@@ -153,20 +155,22 @@ export default {
         year: year,
         term: term
       };
-      this.$http
-        .post("api/physicaldetail", user)
+      this.$axios
+        .post("api/physicaldetail", this.$qs.stringify(user))
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             const key = this.$store.getters.key;
-            this.physicalDetail = JSON.parse(this.$aes.decrypt(res.body.message, key));
+            this.physicalDetail = JSON.parse(
+              this.$aes.decrypt(res.data.message, key)
+            );
             this.yearTerm = year + "年度" + "第" + term + "学期";
             this.popupDetail = true;
           } else {
-            Toast(res.body.message);
+            Toast(res.data.message);
           }
         })
         .catch(err => {
-          Toast(res.body.message);
+          Toast(res.data.message);
         });
     }
   },
@@ -175,5 +179,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

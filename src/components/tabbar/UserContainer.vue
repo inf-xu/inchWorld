@@ -108,10 +108,10 @@ export default {
       return image;
     },
     loginout() {
-      this.$http
+      this.$axios
         .get("api/loginout")
         .then(res => {
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             Toast("退出成功");
             this.$store.commit("loginOut");
             this.$router.push("/home");
