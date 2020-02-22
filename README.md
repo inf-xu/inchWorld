@@ -9,7 +9,7 @@
 我承认每次都先从login界面进入首页显得比较low，这一次默认主页变成了home页面。进入需要账号界面会跳转到login界面才能显示，感谢理解。小程序已经上线，微信搜索"**方寸教务**".目前小程序还在完善，感谢同学们的反馈，因为你们才有了动力。
 
 这个是小程序二维码
-![方寸教务]('http://hbuas.kdaisyers.com/images/wx.jpg')
+![方寸教务](http://hbuas.kdaisyers.com/images/wx.jpg)
 
 #### 更新2020-02-06
 
